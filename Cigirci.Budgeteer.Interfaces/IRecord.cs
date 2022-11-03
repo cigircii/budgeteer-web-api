@@ -8,5 +8,5 @@ public interface IRecord
     public Owner Owner { get; set; }
     public Status Status { get; set; }
     public Created Created { get; set; }
-    public Modified? Modified { get; set; }
+    public Modified Modified { get; set; }
 }

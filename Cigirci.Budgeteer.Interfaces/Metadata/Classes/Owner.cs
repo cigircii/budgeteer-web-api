@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Cigirci.Budgeteer.Interfaces.Metadata;
 
-[Keyless]
-[ComplexType]
+[Owned]
 public record Owner : IOwner
 {
     [Required][Column("owner_id")] public Guid Id { get; set; }

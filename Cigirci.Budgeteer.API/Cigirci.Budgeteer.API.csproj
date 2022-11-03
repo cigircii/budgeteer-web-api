@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cigirci.Budgeteer.DbContext\Cigirci.Budgeteer.DbContext.csproj" />
     <ProjectReference Include="..\Cigirci.Budgeteer.Models\Cigirci.Budgeteer.Models.csproj" />
   </ItemGroup>
 

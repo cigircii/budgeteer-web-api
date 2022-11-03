@@ -1,3 +1,4 @@
+using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -6,7 +7,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContext<BudgeteerContext>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(authenticationScheme: JwtBearerDefaults.AuthenticationScheme, options =>

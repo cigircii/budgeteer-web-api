@@ -7,8 +7,7 @@ using Cigirci.Budgeteer.Interfaces.Metadata;
 using Microsoft.EntityFrameworkCore;
 
 
-[Keyless]
-[ComplexType]
+[Owned]
 public record Status : IStatus
 {
     [Column("status")] public string? Reason { get; set; }

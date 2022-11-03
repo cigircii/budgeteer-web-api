@@ -14,13 +14,18 @@ public record Record : IRecord
     [Key]
     [Required]
     [Column("id")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
 
+    [Required]
     public Owner Owner { get; set; }
 
+    [Required]
     public Status Status { get; set; }
 
+    [Required]
     public Created Created { get; set; }
 
-    public Modified? Modified { get; set; }
+    [Required]
+    public Modified Modified { get; set; }
 }

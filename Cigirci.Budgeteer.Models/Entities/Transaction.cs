@@ -2,9 +2,10 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 
+[Table("transaction")]
 public record Transaction : Record
 {
-    [Column("amount")]
+    [Column("amount", TypeName = "decimal(18,4)")]
     public decimal Amount { get; set; }
 
     [Column("name")]
