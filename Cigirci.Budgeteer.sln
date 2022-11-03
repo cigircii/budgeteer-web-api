@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.API", "Cigirci.Budgeteer.API\Cigirci.Budgeteer.API.csproj", "{248C64D9-24FA-4C4F-9F81-2197D74D6FFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.API", "Cigirci.Budgeteer.API\Cigirci.Budgeteer.API.csproj", "{248C64D9-24FA-4C4F-9F81-2197D74D6FFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.Models", "Cigirci.Budgeteer.Models\Cigirci.Budgeteer.Models.csproj", "{1447B593-A0EE-4CD1-A8C1-7069448C5ADB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Models", "Cigirci.Budgeteer.Models\Cigirci.Budgeteer.Models.csproj", "{1447B593-A0EE-4CD1-A8C1-7069448C5ADB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.DbContext", "Cigirci.Budgeteer.DbContext\Cigirci.Budgeteer.DbContext.csproj", "{1F42C851-9A16-4532-A35A-EF21FF798789}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1447B593-A0EE-4CD1-A8C1-7069448C5ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1447B593-A0EE-4CD1-A8C1-7069448C5ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1447B593-A0EE-4CD1-A8C1-7069448C5ADB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F42C851-9A16-4532-A35A-EF21FF798789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F42C851-9A16-4532-A35A-EF21FF798789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F42C851-9A16-4532-A35A-EF21FF798789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F42C851-9A16-4532-A35A-EF21FF798789}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
