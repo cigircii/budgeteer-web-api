@@ -3,8 +3,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Cigirci.Budgeteer.Interfaces;
-using Cigirci.Budgeteer.Interfaces.Metadata.Classes;
+using Interfaces;
+using Interfaces.Metadata.Classes;
 
 /// <summary>
 /// Represents a record in the database.

@@ -3,7 +3,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using Cigirci.Budgeteer.Interfaces.Metadata;
+using Metadata;
 
 [Owned]
 public record Owner : IOwner
