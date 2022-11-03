@@ -1,7 +1,15 @@
-using Cigirci.Budgeteer.DbContext;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
+using Cigirci.Budgeteer.API.Properties;
+using Cigirci.Budgeteer.DbContext;
+using Cigirci.Budgeteer.Models.Entities;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OpenApi.Models;
+using Cigirci.Budgeteer.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,10 +32,38 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        options.JsonSerializerOptions.PropertyNamingPolicy = new LowerCaseNamingPolicy();
+    }).AddOData(options =>
+    {
+        options.AddRouteComponents(ODataProperties.ODataRoutePrefix, GetEdmModel())
+        .Filter()
+        .Select()
+        .OrderBy()
+        .SetMaxTop(5000);
+    });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Budgeteer",
+        Version = "v1",
+        Description = "Budgeteer API"
+    });
+
+    c.EnableAnnotations();
+
+    c.OperationFilter<OperationCleanFilter>();
+    c.RequestBodyFilter<RequestBodyCleanFilter>();
+    c.SchemaFilter<SchemaCleanFilter>();
+    c.DocumentFilter<DocumentCleanFilter>();
+});
 
 var app = builder.Build();
 
@@ -45,3 +81,18 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+static IEdmModel GetEdmModel()
+{
+    var builder = new ODataConventionModelBuilder()
+    {
+        Namespace = ODataProperties.ODataNamespace,
+        ContainerName = ODataProperties.ODataContainer
+    };
+
+    builder.EnableLowerCamelCase();
+    
+    builder.EntitySet<Transaction>("Transactions");
+    
+    return builder.GetEdmModel();
+}
