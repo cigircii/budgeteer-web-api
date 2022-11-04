@@ -1,5 +1,6 @@
 ﻿namespace Cigirci.Budgeteer.Models;
 
+using Cigirci.Budgeteer.Interfaces.Metadata.Record.Types;
 using Interfaces;
 using Interfaces.Metadata.Classes;
 using System;

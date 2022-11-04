@@ -1,6 +1,6 @@
 ﻿namespace Cigirci.Budgeteer.Interfaces;
 
-using Cigirci.Budgeteer.Interfaces.Metadata.Classes;
+using Cigirci.Budgeteer.Interfaces.Metadata.Record.Types;
 
 public interface IRecord
 {

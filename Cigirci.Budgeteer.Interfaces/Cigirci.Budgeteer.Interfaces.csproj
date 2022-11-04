@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Cigirci.Budgeteer.Enums\Cigirci.Budgeteer.Enums.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Metadata\Profile\Types\" />
+  </ItemGroup>
+
 </Project>

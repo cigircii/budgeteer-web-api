@@ -1,4 +1,4 @@
-﻿namespace Cigirci.Budgeteer.Interfaces.Metadata;
+﻿namespace Cigirci.Budgeteer.Interfaces.Metadata.Record;
 
 internal interface IOwner
 {

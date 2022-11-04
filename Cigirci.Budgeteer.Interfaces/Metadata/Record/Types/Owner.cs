@@ -1,5 +1,6 @@
-﻿namespace Cigirci.Budgeteer.Interfaces.Metadata.Classes;
+﻿namespace Cigirci.Budgeteer.Interfaces.Metadata.Record.Types;
 
+using Cigirci.Budgeteer.Interfaces.Metadata.Record;
 using Metadata;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
