@@ -4,6 +4,7 @@ using Cigirci.Budgeteer.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cigirci.Budgeteer.DbContext.Migrations
 {
     [DbContext(typeof(BudgeteerContext))]
-    partial class BudgeteerContextModelSnapshot : ModelSnapshot
+    [Migration("20221104182152_AddProfileModel")]
+    partial class AddProfileModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +54,7 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("profile");
+                    b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Transaction", b =>
@@ -96,7 +98,7 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
 
                             b1.HasKey("ProfileId");
 
-                            b1.ToTable("profile");
+                            b1.ToTable("Profiles");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProfileId");
@@ -118,7 +120,7 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
 
                             b1.HasKey("ProfileId");
 
-                            b1.ToTable("profile");
+                            b1.ToTable("Profiles");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProfileId");
@@ -140,7 +142,7 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
 
                             b1.HasKey("ProfileId");
 
-                            b1.ToTable("profile");
+                            b1.ToTable("Profiles");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProfileId");
@@ -161,7 +163,7 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
 
                             b1.HasKey("ProfileId");
 
-                            b1.ToTable("profile");
+                            b1.ToTable("Profiles");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProfileId");
@@ -182,7 +184,7 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
 
                             b1.HasKey("ProfileId");
 
-                            b1.ToTable("profile");
+                            b1.ToTable("Profiles");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProfileId");
