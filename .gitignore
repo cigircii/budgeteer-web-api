@@ -358,3 +358,5 @@ Cigirci.Budgeteer.API/appsettings.Development.json
 .idea/.idea.Cigirci.Budgeteer/.idea/projectSettingsUpdater.xml
 .idea/.idea.Cigirci.Budgeteer/.idea/vcs.xml
 .idea/.idea.Cigirci.Budgeteer/.idea/workspace.xml
+.vscode/launch.json
+.vscode/tasks.json
