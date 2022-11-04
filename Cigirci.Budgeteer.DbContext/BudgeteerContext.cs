@@ -15,6 +15,8 @@ public class BudgeteerContext : DbContext
 
     public virtual DbSet<Transaction>? Transactions { get; set; }
 
+    public virtual DbSet<Profile>? Profiles { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var connectionString = _configuration.GetConnectionString("BudgeteerDb");

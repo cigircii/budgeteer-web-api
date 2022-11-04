@@ -2,7 +2,6 @@
 
 using Cigirci.Budgeteer.Interfaces.Metadata.Record.Types;
 using Interfaces;
-using Interfaces.Metadata.Classes;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
