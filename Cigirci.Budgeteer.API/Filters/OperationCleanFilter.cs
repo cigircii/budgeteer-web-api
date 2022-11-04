@@ -74,7 +74,6 @@ public class OperationCleanFilter : IOperationFilter
                 Type = "string"
             }
         });
-
     }
 
     public static void RemoveExtraTypes(IDictionary<string, OpenApiMediaType> content)

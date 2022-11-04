@@ -1,11 +1,10 @@
 ﻿namespace Cigirci.Budgeteer.Interfaces.Metadata.Classes;
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Cigirci.Budgeteer.Enums.Record;
 using Cigirci.Budgeteer.Interfaces.Metadata;
 using Microsoft.EntityFrameworkCore;
-
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 [Owned]
 public record Status : IStatus

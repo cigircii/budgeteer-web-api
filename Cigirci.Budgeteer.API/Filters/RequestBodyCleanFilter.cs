@@ -7,6 +7,5 @@ public class RequestBodyCleanFilter : IRequestBodyFilter
 {
     public void Apply(OpenApiRequestBody requestBody, RequestBodyFilterContext context)
     {
-
     }
 }

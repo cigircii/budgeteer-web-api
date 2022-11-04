@@ -7,6 +7,5 @@ public class SchemaCleanFilter : ISchemaFilter
 {
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
-
     }
 }

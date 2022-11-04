@@ -1,10 +1,10 @@
 ﻿namespace Cigirci.Budgeteer.Models;
 
+using Interfaces;
+using Interfaces.Metadata.Classes;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Interfaces;
-using Interfaces.Metadata.Classes;
 
 /// <summary>
 /// Represents a record in the database.

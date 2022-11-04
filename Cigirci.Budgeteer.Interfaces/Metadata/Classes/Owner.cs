@@ -1,9 +1,9 @@
 ﻿namespace Cigirci.Budgeteer.Interfaces.Metadata.Classes;
 
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
 using Metadata;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 [Owned]
 public record Owner : IOwner

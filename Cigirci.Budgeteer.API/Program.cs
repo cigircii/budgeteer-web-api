@@ -1,15 +1,15 @@
-using System.Text;
-using System.Text.Json.Serialization;
+using Cigirci.Budgeteer.API.Filters;
 using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Entities;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OData;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
-using Microsoft.AspNetCore.OData;
 using Microsoft.OpenApi.Models;
-using Cigirci.Budgeteer.API.Filters;
+using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +19,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(authenticationScheme: JwtBearerDefaults.AuthenticationScheme, options =>
     {
         var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
-        
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -91,8 +91,8 @@ static IEdmModel GetEdmModel()
     };
 
     builder.EnableLowerCamelCase();
-    
+
     builder.EntitySet<Transaction>("Transactions");
-    
+
     return builder.GetEdmModel();
 }

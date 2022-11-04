@@ -1,20 +1,20 @@
 ﻿namespace Cigirci.Budgeteer.API.Controllers;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Entities;
-using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
-using Cigirci.Budgeteer.API.Properties;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
+[Authorize(AuthenticationSchemes = "Bearer")]
 [ODataQueryParameterBinding]
 [ODataRouteComponent(ODataProperties.ODataRoutePrefix)]
 public class TransactionsController : ODataController

@@ -1,6 +1,5 @@
 ﻿namespace Cigirci.Budgeteer.Models.Entities;
 
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 [Table("transaction")]
