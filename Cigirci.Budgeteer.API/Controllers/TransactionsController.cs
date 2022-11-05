@@ -1,6 +1,7 @@
 ﻿namespace Cigirci.Budgeteer.API.Controllers;
 
 using Cigirci.Budgeteer.API.Properties;
+using Cigirci.Budgeteer.Contracts.Requests;
 using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Interfaces.Metadata.Record.Types;
 
 [Authorize(AuthenticationSchemes = "Bearer")]
 [ODataQueryParameterBinding]
@@ -29,7 +31,7 @@ public class TransactionsController : ODataController
     }
 
     [EnableQuery]
-    [HttpGet($"{ODataProperties.ODataRoutePrefix}/transactions")]
+    [HttpGet(ODataProperties.ODataRoutePrefix + "/transactions")]
     [SwaggerOperation("List transactions", "Retrieves a list of available transactions", OperationId = "Transaction.List")]
     public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions(ODataQueryOptions<Transaction> query)
     {
@@ -49,6 +51,46 @@ public class TransactionsController : ODataController
         }
 
         return transaction;
+    }
+
+    [EnableQuery]
+    [HttpPost(ODataProperties.ODataRoutePrefix + "/transactions")]
+    [SwaggerOperation("Create transaction", "Create a transaction", OperationId = "Transaction.Create")]
+    public async Task<ActionResult<Transaction>> PostTransaction([FromBody] TransactionRequest transactionRequest)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        var transaction = new Transaction
+        {
+            Name = transactionRequest.Name,
+            Description = transactionRequest.Description,
+            Amount = transactionRequest.Amount,
+            Status = new Status
+            {
+                Reason = "Submitted",
+                State = Enums.Record.State.Active,
+            },
+            Owner = new Owner
+            {
+                Id = Guid.NewGuid(),
+                Type = 1
+            },
+            Created = new Created
+            {
+                By = Guid.NewGuid()
+            },
+            Modified = new Modified
+            {
+                By = Guid.NewGuid()
+            }
+        };
+        
+        //await _budgeteerContext.Transactions.AddAsync(transaction);
+        await _budgeteerContext.AddAsync(transaction);
+        await _budgeteerContext.SaveChangesAsync();
+
+        //return CreatedAtAction("Success", new { id = transaction.Id }, transaction);
+        return new OkResult();
     }
 
     //// PUT: api/Transactions/5

@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Models", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.DbContext", "Cigirci.Budgeteer.DbContext\Cigirci.Budgeteer.DbContext.csproj", "{1F42C851-9A16-4532-A35A-EF21FF798789}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.Interfaces", "Cigirci.Budgeteer.Interfaces\Cigirci.Budgeteer.Interfaces.csproj", "{4BD2A331-EDB6-4ADC-991E-CA2DEB3AF993}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Interfaces", "Cigirci.Budgeteer.Interfaces\Cigirci.Budgeteer.Interfaces.csproj", "{4BD2A331-EDB6-4ADC-991E-CA2DEB3AF993}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.Enums", "Cigirci.Budgeteer.Enums\Cigirci.Budgeteer.Enums.csproj", "{1438277C-240A-433D-889B-4DDA36021898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Enums", "Cigirci.Budgeteer.Enums\Cigirci.Budgeteer.Enums.csproj", "{1438277C-240A-433D-889B-4DDA36021898}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.Contracts", "Cigirci.Budgeteer.Contracts\Cigirci.Budgeteer.Contracts.csproj", "{A9CF4E6C-FC03-42A6-83A3-AF1F2E7366BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{1438277C-240A-433D-889B-4DDA36021898}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1438277C-240A-433D-889B-4DDA36021898}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1438277C-240A-433D-889B-4DDA36021898}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9CF4E6C-FC03-42A6-83A3-AF1F2E7366BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9CF4E6C-FC03-42A6-83A3-AF1F2E7366BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9CF4E6C-FC03-42A6-83A3-AF1F2E7366BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9CF4E6C-FC03-42A6-83A3-AF1F2E7366BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
