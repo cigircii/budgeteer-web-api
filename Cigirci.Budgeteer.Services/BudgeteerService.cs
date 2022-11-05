@@ -6,7 +6,7 @@ using Cigirci.Budgeteer.DbContext;
 public class BudgeteerService
 {
     public BudgeteerContext? _budgeteerContext { get; set; }
-    
+
     public BudgeteerService(BudgeteerContext? budgeteerContext)
     {
         _budgeteerContext = budgeteerContext;
@@ -14,7 +14,6 @@ public class BudgeteerService
 
     public void CreateTransaction(TransactionRequest transactionRequest)
     {
-
         //_budgeteerContext.Transactions.Add(transaction);
         //_budgeteerContext.SaveChanges();
     }

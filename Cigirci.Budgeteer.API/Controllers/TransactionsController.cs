@@ -4,6 +4,7 @@ using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.Contracts.Requests;
 using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Entities;
+using Interfaces.Metadata.Record.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -14,7 +15,6 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Interfaces.Metadata.Record.Types;
 
 [Authorize(AuthenticationSchemes = "Bearer")]
 [ODataQueryParameterBinding]
@@ -84,7 +84,7 @@ public class TransactionsController : ODataController
                 By = Guid.NewGuid()
             }
         };
-        
+
         //await _budgeteerContext.Transactions.AddAsync(transaction);
         await _budgeteerContext.AddAsync(transaction);
         await _budgeteerContext.SaveChangesAsync();

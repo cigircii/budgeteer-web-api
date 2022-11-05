@@ -48,7 +48,7 @@ public class BudgeteerContext : DbContext
                     modified.On = DateTime.Now;
                 }
             }
-            
+
             var record = entry.Entity is Record;
             var state = entry.State;
             var values = entry.CurrentValues;
