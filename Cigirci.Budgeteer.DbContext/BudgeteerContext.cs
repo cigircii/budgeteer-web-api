@@ -29,18 +29,31 @@ public class BudgeteerContext : DbContext
         optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-
-    }
-
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
         foreach (var entry in ChangeTracker.Entries())
         {
-            var values = entry.CurrentValues;
-        }
+            if (entry.Entity is Created created)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    created.On = DateTime.Now;
+                }
+            }
 
+            if (entry.Entity is Modified modified)
+            {
+                if (entry.State == EntityState.Modified || entry.State == EntityState.Added)
+                {
+                    modified.On = DateTime.Now;
+                }
+            }
+            
+            var record = entry.Entity is Record;
+            var state = entry.State;
+            var values = entry.CurrentValues;
+            var entity = entry.Entity;
+        }
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 }

@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Enums", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.Contracts", "Cigirci.Budgeteer.Contracts\Cigirci.Budgeteer.Contracts.csproj", "{A9CF4E6C-FC03-42A6-83A3-AF1F2E7366BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.Services", "Cigirci.Budgeteer.Services\Cigirci.Budgeteer.Services.csproj", "{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{A9CF4E6C-FC03-42A6-83A3-AF1F2E7366BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9CF4E6C-FC03-42A6-83A3-AF1F2E7366BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9CF4E6C-FC03-42A6-83A3-AF1F2E7366BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
