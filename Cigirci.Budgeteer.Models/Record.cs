@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 /// <summary>
 /// Represents a record in the database.
 /// </summary>
-public record Record : IRecord
+public abstract record Record : IRecord
 {
     [Key]
     [Required]
