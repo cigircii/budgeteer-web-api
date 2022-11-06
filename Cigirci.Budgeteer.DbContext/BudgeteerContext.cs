@@ -1,20 +1,25 @@
 ﻿namespace Cigirci.Budgeteer.DbContext;
 
+using Cigirci.Budgeteer.DbContext.Helper;
 using Cigirci.Budgeteer.Interfaces.Metadata.Record.Types;
 using Cigirci.Budgeteer.Models;
 using Cigirci.Budgeteer.Models.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
 public class BudgeteerContext : DbContext
 {
     private readonly IConfiguration? _configuration;
+    private readonly IHttpContextAccessor? _httpContextAccessor;
 
-    public BudgeteerContext(DbContextOptions<BudgeteerContext> options, IConfiguration? configuration = null) : base(options)
+    public BudgeteerContext(DbContextOptions<BudgeteerContext> options, IConfiguration? configuration = null, IHttpContextAccessor? httpContextAccessor = null) : base(options)
     {
         _configuration = configuration;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public virtual DbSet<Transaction>? Transactions { get; set; }
@@ -31,29 +36,22 @@ public class BudgeteerContext : DbContext
 
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
+        var user = _httpContextAccessor?.HttpContext?.User;
+        var id = user?.FindFirstValue(ClaimTypes.NameIdentifier);
+
         foreach (var entry in ChangeTracker.Entries())
         {
-            if (entry.Entity is Created created)
-            {
-                if (entry.State == EntityState.Added)
-                {
-                    created.On = DateTime.Now;
-                }
-            }
+            if (entry.Entity is not Record record) continue;
+            
+            record.Modified = MetadataHelper.BuildModified(Guid.NewGuid());
+            
+            if (entry.State != EntityState.Added) continue;
 
-            if (entry.Entity is Modified modified)
-            {
-                if (entry.State == EntityState.Modified || entry.State == EntityState.Added)
-                {
-                    modified.On = DateTime.Now;
-                }
-            }
-
-            var record = entry.Entity is Record;
-            var state = entry.State;
-            var values = entry.CurrentValues;
-            var entity = entry.Entity;
+            record.Created = MetadataHelper.BuildCreated(Guid.NewGuid());
+            record.Status = MetadataHelper.BuildStatus();
+            record.Owner = MetadataHelper.BuildOwner();
         }
+
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 }

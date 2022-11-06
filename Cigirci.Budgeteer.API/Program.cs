@@ -3,6 +3,7 @@ using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OData.Edm;
@@ -12,8 +13,6 @@ using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddDbContext<BudgeteerContext>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(authenticationScheme: JwtBearerDefaults.AuthenticationScheme, options =>
@@ -46,6 +45,9 @@ builder.Services.AddControllers()
         .OrderBy()
         .SetMaxTop(5000);
     });
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDbContext<BudgeteerContext>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen(c =>

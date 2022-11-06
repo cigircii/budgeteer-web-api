@@ -11,8 +11,8 @@ public record Modified : IModified
 {
     [Required]
     [Column("modified_on")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public DateTime On { get; set; }
 
-    [Column("modified_by")] public Guid By { get; set; }
+    [Required][Column("modified_by")] public Guid By { get; set; }
 }

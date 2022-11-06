@@ -10,7 +10,7 @@ public record Created : ICreated
 {
     [Required]
     [Column("created_on")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public DateTime On { get; set; }
 
     [Required][Column("created_by")] public Guid By { get; set; }
