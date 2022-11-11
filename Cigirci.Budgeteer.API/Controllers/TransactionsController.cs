@@ -5,6 +5,8 @@ using Cigirci.Budgeteer.Contracts.Requests;
 using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Enums.Record;
 using Cigirci.Budgeteer.Models.Entities;
+using Cigirci.Budgeteer.Models.Validation;
+using Cigirci.Budgeteer.Services;
 using Interfaces.Metadata.Record.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,76 +25,55 @@ using System.Threading.Tasks;
 public class TransactionsController : ODataController
 {
     private readonly ILogger<TransactionsController>? _logger;
-    private readonly BudgeteerContext? _budgeteerContext;
+    private readonly BudgeteerService? _budgeteerService;
 
-    public TransactionsController(ILogger<TransactionsController>? logger = null, BudgeteerContext? context = null)
+    public TransactionsController(ILogger<TransactionsController>? logger = null, BudgeteerService? budgeteerService = null)
     {
         _logger = logger;
-        _budgeteerContext = context;
+        _budgeteerService = budgeteerService;
     }
 
     [EnableQuery]
     [HttpGet(ODataProperties.ODataRoutePrefix + "/transactions")]
     [SwaggerOperation("List transactions", "Retrieves a list of available transactions", OperationId = "Transaction.List")]
+    [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions(ODataQueryOptions<Transaction> query)
     {
-        return await _budgeteerContext.Transactions.ToListAsync();
+        var transactions = await _budgeteerService.GetAll<Transaction>();
+        return Ok(transactions);
     }
 
     [EnableQuery]
     [HttpGet(ODataProperties.ODataRoutePrefix + "/transactions({id})")]
     [SwaggerOperation("Get transaction", "Retrieve a specific transaction", OperationId = "Transaction.Get")]
+    [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Transaction>> GetTransaction(Guid id, ODataQueryOptions<Transaction> query)
     {
-        var transaction = await _budgeteerContext.Transactions.FindAsync(id);
+        //var transaction = await _budgeteerContext.Transactions.FindAsync(id);
 
-        if (transaction == null)
-        {
-            return NotFound();
-        }
+        //if (transaction == null)
+        //{
+        //    return NotFound();
+        //}
 
-        return transaction;
+        //return transaction;
+
+        return Ok();
     }
 
     [EnableQuery]
     [HttpPost(ODataProperties.ODataRoutePrefix + "/transactions")]
     [SwaggerOperation("Create transaction", "Create a transaction", OperationId = "Transaction.Create")]
+    [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Transaction>> PostTransaction([FromBody] TransactionRequest transactionRequest)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        var name = User?.Identity?.Name;
-
-        var transaction = new Transaction
-        {
-            Name = transactionRequest.Name,
-            Description = transactionRequest.Description,
-            Amount = transactionRequest.Amount,
-            //Status = new Status
-            //{
-            //    Reason = "Submitted",
-            //    State = State.Active,
-            //},
-            //Owner = new Owner
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Type = OwnerType.User
-            //},
-            //Created = new Created
-            //{
-            //    By = Guid.NewGuid()
-            //},
-            //Modified = new Modified
-            //{
-            //    By = Guid.NewGuid()
-            //}
-        };
-
-        //await _budgeteerContext.Transactions.AddAsync(transaction);
-        await _budgeteerContext.AddAsync(transaction);
-        await _budgeteerContext.SaveChangesAsync();
-        
-        return new OkResult();
+        return Ok();
     }
 
     //// PUT: api/Transactions/5
