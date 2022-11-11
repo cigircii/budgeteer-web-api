@@ -2,6 +2,8 @@ using Cigirci.Budgeteer.API.Filters;
 using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Entities;
+using Cigirci.Budgeteer.Services;
+using Cigirci.Budgeteer.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
@@ -46,6 +48,7 @@ builder.Services.AddControllers()
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<BudgeteerContext>();
+builder.Services.AddScoped<BudgeteerService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen(c =>
