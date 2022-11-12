@@ -1,9 +1,9 @@
 ﻿namespace Cigirci.Budgeteer.Services;
 
 using DbContext;
-using Models;
 using Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,8 +30,6 @@ public class BudgeteerService : IControllerService<Record>
         throw new NotImplementedException();
     }
 
-
-
     public Task<Record> Get<TEntity>(Guid id) where TEntity : Record
     {
         throw new NotImplementedException();
@@ -46,7 +44,7 @@ public class BudgeteerService : IControllerService<Record>
     {
         throw new NotImplementedException();
     }
-    
+
     public Task<bool> Exists<T>(Record record) where T : Record
     {
         throw new NotImplementedException();

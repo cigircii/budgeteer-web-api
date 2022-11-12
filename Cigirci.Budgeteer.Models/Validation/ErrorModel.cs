@@ -25,6 +25,7 @@ public class ErrorModel
             TraceId = _traceId
         };
     }
+
     public static ErrorModel CreateServerError(string? _traceId = null)
     {
         return new ErrorModel

@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Contracts
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Services", "Cigirci.Budgeteer.Services\Cigirci.Budgeteer.Services.csproj", "{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.Services.Interfaces", "Cigirci.Budgeteer.Services.Interfaces\Cigirci.Budgeteer.Services.Interfaces.csproj", "{FF68A950-CF3B-466E-B5C7-A9E51B06DC1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Services.Interfaces", "Cigirci.Budgeteer.Services.Interfaces\Cigirci.Budgeteer.Services.Interfaces.csproj", "{FF68A950-CF3B-466E-B5C7-A9E51B06DC1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,14 +1,10 @@
 using Cigirci.Budgeteer.API.Filters;
 using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.DbContext;
-using Cigirci.Budgeteer.Models.Entities;
 using Cigirci.Budgeteer.Services;
-using Cigirci.Budgeteer.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OData.Edm;
-using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -76,7 +72,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    
+
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
@@ -87,7 +83,7 @@ if (app.Environment.IsDevelopment())
     {
         options.DocumentTitle = SwaggerDocProperties.WebApiDocsName;
         options.SpecUrl = SwaggerDocProperties.SwaggerEndPoint;
-        
+
         options.RequiredPropsFirst();
     });
 }

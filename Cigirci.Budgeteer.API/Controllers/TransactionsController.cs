@@ -2,18 +2,14 @@
 
 using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.Contracts.Requests;
-using Cigirci.Budgeteer.DbContext;
-using Cigirci.Budgeteer.Enums.Record;
 using Cigirci.Budgeteer.Models.Entities;
 using Cigirci.Budgeteer.Models.Validation;
 using Cigirci.Budgeteer.Services;
-using Interfaces.Metadata.Record.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,6 @@
 ﻿namespace Cigirci.Budgeteer.DbContext;
 
 using Cigirci.Budgeteer.DbContext.Helper;
-using Cigirci.Budgeteer.Interfaces.Metadata.Record.Types;
 using Cigirci.Budgeteer.Models;
 using Cigirci.Budgeteer.Models.Entities;
 using Microsoft.AspNetCore.Http;
@@ -42,9 +41,9 @@ public class BudgeteerContext : DbContext
         foreach (var entry in ChangeTracker.Entries())
         {
             if (entry.Entity is not Record record) continue;
-            
+
             record.Modified = MetadataHelper.BuildModified(Guid.NewGuid());
-            
+
             if (entry.State != EntityState.Added) continue;
 
             record.Created = MetadataHelper.BuildCreated(Guid.NewGuid());
