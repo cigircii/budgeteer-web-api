@@ -1,17 +1,17 @@
 ﻿namespace Cigirci.Budgeteer.Services;
 
 using DbContext;
-using Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Interfaces.Services;
 
 /// <summary>
-/// Base class for all services.
+/// Base class for all controller services using BudgeteerContext.
 /// </summary>
-public class BudgeteerService : IControllerService<Record>
+public class BudgeteerService<TEntity> : IBudgeteerService<TEntity> where TEntity: Record
 {
     private readonly BudgeteerContext? _budgeteerContext;
 
@@ -20,32 +20,34 @@ public class BudgeteerService : IControllerService<Record>
         _budgeteerContext = budgeteerContext;
     }
 
-    public Task Create<TEntity>(Record record) where TEntity : Record
+    public async Task<TEntity> Get(Guid id)
+    {
+        return await _budgeteerContext?.Set<TEntity>()
+            .FirstOrDefaultAsync(record => record.Id.Equals(id));
+    }
+
+    public async Task<IEnumerable<TEntity>> GetAll()
+    {
+        return await _budgeteerContext?.Set<TEntity>()
+            .ToListAsync();
+    }
+
+    public Task<TEntity> Create(TEntity record)
     {
         throw new NotImplementedException();
     }
 
-    public Task Delete<TEntity>(Record record) where TEntity : Record
+    public Task<TEntity> Update(TEntity record)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Record> Get<TEntity>(Guid id) where TEntity : Record
+    public Task Delete(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Record>> GetAll<TEntity>() where TEntity : Record
-    {
-        return await _budgeteerContext?.Set<TEntity>().ToListAsync();
-    }
-
-    public Task Update<TEntity>(Record record) where TEntity : Record
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> Exists<T>(Record record) where T : Record
+    public Task<bool> Exists(Guid id)
     {
         throw new NotImplementedException();
     }

@@ -1,6 +1,7 @@
 ﻿namespace Cigirci.Budgeteer.DbContext.Helper;
 
 using Cigirci.Budgeteer.Interfaces.Metadata.Record.Types;
+using Models.Components.Metadata;
 
 internal static class MetadataHelper
 {

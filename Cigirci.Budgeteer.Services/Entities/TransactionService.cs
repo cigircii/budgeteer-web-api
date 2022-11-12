@@ -1,5 +1,8 @@
 ﻿namespace Cigirci.Budgeteer.Services.Entities;
 
-public class TransactionService : BudgeteerService
+using Models.Entities;
+
+public class TransactionService : BudgeteerService<Transaction>
 {
+    
 }

@@ -1,10 +1,10 @@
 ﻿namespace Cigirci.Budgeteer.Models.Entities;
 
 using Cigirci.Budgeteer.Enums.Profile;
-using Cigirci.Budgeteer.Interfaces.Metadata.Profile.Types;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Components.Profile;
 
 [Table("profile")]
 public record Profile : Record

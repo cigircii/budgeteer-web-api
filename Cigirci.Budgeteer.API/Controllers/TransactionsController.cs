@@ -14,6 +14,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Services.Entities;
 
 [Authorize]
 [ODataQueryParameterBinding]
@@ -21,12 +22,13 @@ using System.Threading.Tasks;
 public class TransactionsController : ODataController
 {
     private readonly ILogger<TransactionsController>? _logger;
-    private readonly BudgeteerService? _budgeteerService;
+    // private readonly BudgeteerService? _budgeteerService;
+    private readonly TransactionService? _transactionService;
 
-    public TransactionsController(ILogger<TransactionsController>? logger = null, BudgeteerService? budgeteerService = null)
+    public TransactionsController(ILogger<TransactionsController>? logger = null, TransactionService? transactionService = null)
     {
         _logger = logger;
-        _budgeteerService = budgeteerService;
+        _transactionService = transactionService;
     }
 
     [EnableQuery]
@@ -36,7 +38,8 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions(ODataQueryOptions<Transaction> query)
     {
-        var transactions = await _budgeteerService.GetAll<Transaction>();
+        // var transactions = await _budgeteerService.GetAll<Transaction>();
+        var transactions = await _transactionService?.GetAll();
         return Ok(transactions);
     }
 

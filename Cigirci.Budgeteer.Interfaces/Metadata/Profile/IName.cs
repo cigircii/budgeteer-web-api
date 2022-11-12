@@ -1,6 +1,6 @@
 ﻿namespace Cigirci.Budgeteer.Interfaces.Metadata.Profile;
 
-internal interface IName
+public interface IName
 {
     public string? First { get; set; }
 
