@@ -2,6 +2,7 @@
 
 using Cigirci.Budgeteer.Models;
 
+
 /// <summary>
 /// Base interface for all services.
 /// </summary>

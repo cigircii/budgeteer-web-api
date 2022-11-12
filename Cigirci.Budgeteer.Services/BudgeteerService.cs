@@ -1,8 +1,8 @@
 ﻿namespace Cigirci.Budgeteer.Services;
 
-using Cigirci.Budgeteer.DbContext;
-using Cigirci.Budgeteer.Models;
-using Cigirci.Budgeteer.Services.Interfaces;
+using DbContext;
+using Models;
+using Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 /// </summary>
 public class BudgeteerService : IControllerService<Record>
 {
-    public readonly BudgeteerContext? _budgeteerContext;
+    private readonly BudgeteerContext? _budgeteerContext;
 
     public BudgeteerService(BudgeteerContext? budgeteerContext = null)
     {
