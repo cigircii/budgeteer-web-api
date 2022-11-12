@@ -1,15 +1,13 @@
 using Cigirci.Budgeteer.API.Filters;
 using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.DbContext;
-using Cigirci.Budgeteer.Services;
+using Cigirci.Budgeteer.Services.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
-using Cigirci.Budgeteer.API.Controllers;
-using Cigirci.Budgeteer.Services.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +43,7 @@ builder.Services.AddControllers()
     });
 
 //TODO: Add hosted service
-//TODO: Add services separately 
+//TODO: Add services separately
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<BudgeteerContext>();
 //builder.Services.AddScoped<BudgeteerService>();

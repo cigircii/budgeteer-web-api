@@ -1,8 +1,8 @@
 namespace Cigirci.Budgeteer.Models.Components.Profile;
 
-using System.ComponentModel.DataAnnotations.Schema;
 using Interfaces.Metadata.Profile;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 [Owned]
 public record Name : IName

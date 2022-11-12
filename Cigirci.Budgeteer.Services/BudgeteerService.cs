@@ -1,17 +1,17 @@
 ﻿namespace Cigirci.Budgeteer.Services;
 
 using DbContext;
+using Interfaces.Services;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Interfaces.Services;
 
 /// <summary>
 /// Base class for all controller services using BudgeteerContext.
 /// </summary>
-public abstract class BudgeteerService<TEntity> : IBudgeteerService<TEntity> where TEntity: Record
+public abstract class BudgeteerService<TEntity> : IBudgeteerService<TEntity> where TEntity : Record
 {
     private readonly BudgeteerContext? _budgeteerContext;
 

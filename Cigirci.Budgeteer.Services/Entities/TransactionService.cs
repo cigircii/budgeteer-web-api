@@ -7,6 +7,5 @@ public class TransactionService : BudgeteerService<Transaction>
 {
     public TransactionService(BudgeteerContext? budgeteerContext = null) : base(budgeteerContext)
     {
-        
     }
 }

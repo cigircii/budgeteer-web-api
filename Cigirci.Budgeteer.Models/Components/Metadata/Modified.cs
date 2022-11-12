@@ -1,10 +1,10 @@
 ﻿namespace Cigirci.Budgeteer.Models.Components.Metadata;
 
+using Cigirci.Budgeteer.Interfaces.Metadata.Record;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Cigirci.Budgeteer.Interfaces.Metadata.Record;
-using Microsoft.EntityFrameworkCore;
 
 [Owned]
 public record Modified : IModified

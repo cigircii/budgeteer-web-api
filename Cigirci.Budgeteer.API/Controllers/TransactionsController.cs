@@ -4,17 +4,16 @@ using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.Contracts.Requests;
 using Cigirci.Budgeteer.Models.Entities;
 using Cigirci.Budgeteer.Models.Validation;
-using Cigirci.Budgeteer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Services.Entities;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Services.Entities;
 
 [Authorize]
 [ODataQueryParameterBinding]
@@ -22,6 +21,7 @@ using Services.Entities;
 public class TransactionsController : ODataController
 {
     private readonly ILogger<TransactionsController>? _logger;
+
     // private readonly BudgeteerService? _budgeteerService;
     private readonly TransactionService? _transactionService;
 

@@ -7,9 +7,14 @@
 public interface IBudgeteerService<TRecord>
 {
     Task<TRecord> Get(Guid id);
+
     Task<IEnumerable<TRecord>> GetAll();
+
     Task<TRecord> Create(TRecord record);
+
     Task<TRecord> Update(TRecord record);
+
     Task Delete(Guid id);
+
     Task<bool> Exists(Guid id);
 }
