@@ -30,10 +30,7 @@ public class BudgeteerService : IControllerService<Record>
         throw new NotImplementedException();
     }
 
-    public Task<bool> Exists<T>(Record record) where T : Record
-    {
-        throw new NotImplementedException();
-    }
+
 
     public Task<Record> Get<TEntity>(Guid id) where TEntity : Record
     {
@@ -49,10 +46,9 @@ public class BudgeteerService : IControllerService<Record>
     {
         throw new NotImplementedException();
     }
-
-    //public Task<bool> RecordExists<TEntity>(Record record) where TEntity : Record
-    //{
-    //    //_budgeteerContext.Set<TEntity>().Any
-    //    throw new NotImplementedException();
-    //}
+    
+    public Task<bool> Exists<T>(Record record) where T : Record
+    {
+        throw new NotImplementedException();
+    }
 }
