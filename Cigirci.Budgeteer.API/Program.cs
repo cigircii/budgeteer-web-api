@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
 using Cigirci.Budgeteer.API.Controllers;
+using Cigirci.Budgeteer.Services.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,11 +44,14 @@ builder.Services.AddControllers()
         .SetMaxTop(5000);
     });
 
+//TODO: Add hosted service
+//TODO: Add services separately 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<BudgeteerContext>();
-// builder.Services.AddScoped<BudgeteerService>();
-builder.Services.AddScoped<TransactionsController>();
+//builder.Services.AddScoped<BudgeteerService>();
+builder.Services.AddScoped<TransactionService>();
 
+//TODO: Add swagger separately
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen(c =>
 {
@@ -70,6 +74,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+//TODO: Set-up development pipeline separately
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

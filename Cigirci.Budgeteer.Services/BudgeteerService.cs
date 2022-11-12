@@ -11,16 +11,16 @@ using Interfaces.Services;
 /// <summary>
 /// Base class for all controller services using BudgeteerContext.
 /// </summary>
-public class BudgeteerService<TEntity> : IBudgeteerService<TEntity> where TEntity: Record
+public abstract class BudgeteerService<TEntity> : IBudgeteerService<TEntity> where TEntity: Record
 {
     private readonly BudgeteerContext? _budgeteerContext;
 
-    public BudgeteerService(BudgeteerContext? budgeteerContext = null)
+    protected BudgeteerService(BudgeteerContext? budgeteerContext = null)
     {
         _budgeteerContext = budgeteerContext;
     }
 
-    public async Task<TEntity> Get(Guid id)
+    public async Task<TEntity>? Get(Guid id)
     {
         return await _budgeteerContext?.Set<TEntity>()
             .FirstOrDefaultAsync(record => record.Id.Equals(id));
