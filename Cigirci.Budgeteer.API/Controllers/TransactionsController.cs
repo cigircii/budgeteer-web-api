@@ -21,8 +21,6 @@ using System.Threading.Tasks;
 public class TransactionsController : ODataController
 {
     private readonly ILogger<TransactionsController>? _logger;
-
-    // private readonly BudgeteerService? _budgeteerService;
     private readonly TransactionService? _transactionService;
 
     public TransactionsController(ILogger<TransactionsController>? logger = null, TransactionService? transactionService = null)
