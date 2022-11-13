@@ -32,11 +32,11 @@ internal static class MetadataHelper
         };
     }
 
-    internal static Owner BuildOwner()
+    internal static Owner BuildOwner(Guid id)
     {
         return new Owner
         {
-            Id = Guid.NewGuid(),
+            Id = id,
             Type = Enums.Record.OwnerType.User
         };
     }

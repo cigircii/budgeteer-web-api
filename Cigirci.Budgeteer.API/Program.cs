@@ -28,6 +28,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+//TODO: Fix $expand to work properly
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -39,6 +40,7 @@ builder.Services.AddControllers()
         options.Filter()
         .Select()
         .OrderBy()
+        //.Expand()
         .SetMaxTop(5000);
     });
 

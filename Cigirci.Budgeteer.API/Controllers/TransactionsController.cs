@@ -2,6 +2,7 @@
 
 using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.Contracts.Requests;
+using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Entities;
 using Cigirci.Budgeteer.Models.Validation;
 using Microsoft.ApplicationInsights;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.EntityFrameworkCore;
 using Services.Entities;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -23,11 +25,13 @@ public class TransactionsController : ODataController
 {
     private readonly TransactionService? _transactionService;
     private readonly ILogger<TransactionsController>? _logger;
+    private readonly BudgeteerContext? _budgeteerContext;
     
-    public TransactionsController(TransactionService? transactionService = null, ILogger<TransactionsController>? logger = null)
+    public TransactionsController(TransactionService? transactionService = null, ILogger<TransactionsController>? logger = null, BudgeteerContext? budgeteerContext = null)
     {
         _transactionService = transactionService;
         _logger = logger;
+        _budgeteerContext = budgeteerContext;
     }
 
     [EnableQuery]
@@ -48,9 +52,10 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions(ODataQueryOptions<Transaction> query)
     {
-        // var transactions = await _budgeteerService.GetAll<Transaction>();
+         //var transactions = await _budgeteerService.GetAll<Transaction>();
         var transactions = await _transactionService?.GetAll();
-        return Ok(transactions);
+        //var transactions = await _budgeteerContext?.Transactions?.ToListAsync();
+        return new OkObjectResult(transactions);
     }
 
     [EnableQuery]

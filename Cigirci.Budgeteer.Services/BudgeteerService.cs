@@ -3,10 +3,12 @@
 using DbContext;
 using Interfaces.Services;
 using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 /// <summary>
@@ -23,10 +25,11 @@ public abstract class BudgeteerService<TEntity> : IBudgeteerService<TEntity> whe
         _telemetryClient = telemetryClient;
     }
 
-    public async Task<TEntity>? Get(Guid id)
+    public async Task<TEntity?> Get(Guid id)
     {
+        
         return await _budgeteerContext?.Set<TEntity>()
-        .FirstOrDefaultAsync(record => record.Id.Equals(id));
+            .FirstOrDefaultAsync(record => record.Id.Equals(id));
     }
 
     public async Task<IEnumerable<TEntity>> GetAll()
