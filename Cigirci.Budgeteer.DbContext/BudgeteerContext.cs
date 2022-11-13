@@ -27,7 +27,7 @@ public class BudgeteerContext : DbContext
     public virtual DbSet<Member>? Members { get; set; }
     public virtual DbSet<Profile>? Profiles { get; set; }
     public virtual DbSet<Settings>? Settings { get; set; }
-    public virtual DbSet<Subscription> Subscriptions { get; set; }
+    public virtual DbSet<Subscription>? Subscriptions { get; set; }
     public virtual DbSet<Transaction>? Transactions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

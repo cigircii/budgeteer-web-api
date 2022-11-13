@@ -30,18 +30,6 @@ public class TransactionsController : ODataController
     }
 
     [EnableQuery]
-    [HttpGet(ODataProperties.ODataRoutePrefix + "/transactions")]
-    [SwaggerOperation("List transactions", "Retrieves a list of available transactions", OperationId = "Transaction.List")]
-    [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions(ODataQueryOptions<Transaction> query)
-    {
-        // var transactions = await _budgeteerService.GetAll<Transaction>();
-        var transactions = await _transactionService?.GetAll();
-        return Ok(transactions);
-    }
-
-    [EnableQuery]
     [HttpGet(ODataProperties.ODataRoutePrefix + "/transactions({id})")]
     [SwaggerOperation("Get transaction", "Retrieve a specific transaction", OperationId = "Transaction.Get")]
     [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
@@ -59,6 +47,18 @@ public class TransactionsController : ODataController
         //return transaction;
 
         return Ok();
+    }
+
+    [EnableQuery]
+    [HttpGet(ODataProperties.ODataRoutePrefix + "/transactions")]
+    [SwaggerOperation("List transactions", "Retrieves a list of available transactions", OperationId = "Transaction.List")]
+    [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions(ODataQueryOptions<Transaction> query)
+    {
+        // var transactions = await _budgeteerService.GetAll<Transaction>();
+        var transactions = await _transactionService?.GetAll();
+        return Ok(transactions);
     }
 
     [EnableQuery]
