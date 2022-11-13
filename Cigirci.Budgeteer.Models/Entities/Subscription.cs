@@ -24,8 +24,10 @@ public record Subscription : Record
     [Column("due_date")]
     public DateTime? Due { get; set; }
 
+    [Column("start_date")]
     public DateTime? Start { get; set; }
 
+    [Column("end_date")]
     public DateTime? End { get; set; }
 
     [Required]

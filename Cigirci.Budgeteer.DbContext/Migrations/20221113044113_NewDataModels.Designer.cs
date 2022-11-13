@@ -4,6 +4,7 @@ using Cigirci.Budgeteer.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cigirci.Budgeteer.DbContext.Migrations
 {
     [DbContext(typeof(BudgeteerContext))]
-    partial class BudgeteerContextModelSnapshot : ModelSnapshot
+    [Migration("20221113044113_NewDataModels")]
+    partial class NewDataModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
