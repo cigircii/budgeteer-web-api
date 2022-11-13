@@ -70,6 +70,8 @@ builder.Services.AddSwaggerGen(c =>
     c.DocumentFilter<DocumentCleanFilter>();
 });
 
+builder.Services.AddApplicationInsightsTelemetry();
+
 var app = builder.Build();
 
 //TODO: Set-up development pipeline separately

@@ -2,6 +2,7 @@
 
 using DbContext;
 using Interfaces.Services;
+using Microsoft.ApplicationInsights;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
@@ -14,16 +15,18 @@ using System.Threading.Tasks;
 public abstract class BudgeteerService<TEntity> : IBudgeteerService<TEntity> where TEntity : Record
 {
     private readonly BudgeteerContext? _budgeteerContext;
+    private readonly TelemetryClient? _telemetryClient;
 
-    protected BudgeteerService(BudgeteerContext? budgeteerContext = null)
+    protected BudgeteerService(BudgeteerContext? budgeteerContext = null, TelemetryClient? telemetryClient = null)
     {
         _budgeteerContext = budgeteerContext;
+        _telemetryClient = telemetryClient;
     }
 
     public async Task<TEntity>? Get(Guid id)
     {
         return await _budgeteerContext?.Set<TEntity>()
-            .FirstOrDefaultAsync(record => record.Id.Equals(id));
+        .FirstOrDefaultAsync(record => record.Id.Equals(id));
     }
 
     public async Task<IEnumerable<TEntity>> GetAll()

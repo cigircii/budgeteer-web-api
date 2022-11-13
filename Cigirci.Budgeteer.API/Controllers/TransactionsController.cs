@@ -4,6 +4,7 @@ using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.Contracts.Requests;
 using Cigirci.Budgeteer.Models.Entities;
 using Cigirci.Budgeteer.Models.Validation;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -20,13 +21,13 @@ using System.Threading.Tasks;
 [ODataRouteComponent(ODataProperties.ODataRoutePrefix)]
 public class TransactionsController : ODataController
 {
-    private readonly ILogger<TransactionsController>? _logger;
     private readonly TransactionService? _transactionService;
-
-    public TransactionsController(ILogger<TransactionsController>? logger = null, TransactionService? transactionService = null)
+    private readonly ILogger<TransactionsController>? _logger;
+    
+    public TransactionsController(TransactionService? transactionService = null, ILogger<TransactionsController>? logger = null)
     {
-        _logger = logger;
         _transactionService = transactionService;
+        _logger = logger;
     }
 
     [EnableQuery]
@@ -37,15 +38,6 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Transaction>> GetTransaction(Guid id, ODataQueryOptions<Transaction> query)
     {
-        //var transaction = await _budgeteerContext.Transactions.FindAsync(id);
-
-        //if (transaction == null)
-        //{
-        //    return NotFound();
-        //}
-
-        //return transaction;
-
         return Ok();
     }
 
@@ -64,12 +56,23 @@ public class TransactionsController : ODataController
     [EnableQuery]
     [HttpPost(ODataProperties.ODataRoutePrefix + "/transactions")]
     [SwaggerOperation("Create transaction", "Create a transaction", OperationId = "Transaction.Create")]
-    [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Transaction), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Transaction>> PostTransaction([FromBody] TransactionRequest transactionRequest)
+    public async Task<ActionResult<Transaction>> CreateTransaction([FromBody] TransactionRequest transactionRequest)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
+        return CreatedAtAction("CreateTransaction", transactionRequest);
+    }
+
+    [EnableQuery]
+    [HttpPut(ODataProperties.ODataRoutePrefix + "/transactions({id})")]
+    [SwaggerOperation("Update transaction", "Update a transaction", OperationId = "Transaction.Update")]
+    [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Transaction>> UpdateTransaction([FromBody] TransactionRequest transactionRequest)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
         return Ok();
     }
 
