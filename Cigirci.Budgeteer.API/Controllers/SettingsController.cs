@@ -11,5 +11,5 @@ using Properties;
 [ODataRouteComponent(ODataProperties.ODataRoutePrefix)]
 public class SettingsController : ODataController
 {
-    
+    //TODO: Check if this controller is needed
 }

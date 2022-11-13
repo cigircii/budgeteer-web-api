@@ -5,11 +5,17 @@ using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Properties;
+using Services.Entities;
 
 [Authorize]
 [ODataQueryParameterBinding]
 [ODataRouteComponent(ODataProperties.ODataRoutePrefix)]
 public class CompanyController : ODataController
 {
-    
+    private readonly CompanyService? _companyService;
+
+    public CompanyController(CompanyService? companyService = null)
+    {
+        _companyService = companyService;
+    }
 }
