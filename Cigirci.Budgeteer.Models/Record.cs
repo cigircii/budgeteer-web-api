@@ -16,17 +16,17 @@ public abstract record Record : IRecord
     [Required]
     [Column("id")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; set; }
+    public Guid Id { get; init; }
 
     [Required]
-    public Owner Owner { get; set; }
+    public Owner Owner { get; init; } = new();
 
     [Required]
-    public Status Status { get; set; }
+    public Status Status { get; init; } = new();
 
     [Required]
-    public Created Created { get; set; }
+    public Created Created { get; init; } = new();
 
     [Required]
-    public Modified Modified { get; set; }
+    public Modified Modified { get; init; } = new();
 }

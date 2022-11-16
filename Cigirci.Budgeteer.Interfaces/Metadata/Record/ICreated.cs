@@ -2,6 +2,6 @@
 
 public interface ICreated
 {
-    public DateTime On { get; set; }
-    public Guid By { get; set; }
+    public DateTime On { get; init; }
+    public Guid By { get; init; }
 }

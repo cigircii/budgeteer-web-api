@@ -36,8 +36,6 @@ public class BudgeteerContext : DbContext
 
         optionsBuilder.UseSqlServer(connectionString);
         optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
-        optionsBuilder.EnableSensitiveDataLogging();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -70,25 +68,59 @@ public class BudgeteerContext : DbContext
         modelBuilder.Entity<Transaction>()
             .HasQueryFilter(record => record.Owner.Id == user);
     }
+    
+    private void Configure<T>(ModelBuilder modelBuilder) where T: Record
+    {
+        var user = _httpContextAccessor?.HttpContext?.User.GetUserId();
+
+        modelBuilder.Entity<T>()
+            .HasQueryFilter(record => record.Owner.Id == user);
+    }
 
 
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
         var user = _httpContextAccessor?.HttpContext?.User.GetUserId();
-        if (user is null) return Task.FromResult(0);
-        
+
         foreach (var entry in ChangeTracker.Entries())
         {
+            //verify entry (row) is a record
+            //verify if entry belongs to the user
             if (entry.Entity is not Record record) continue;
+            if (record.Owner.Id is not null && record.Owner.Id != user) continue;
+
+            //verify if record owner belongs to current user
+            if (user is null) continue;
+            if (record.Owner.Id != user) continue;
+
+            if (entry.State == EntityState.Modified)
+            {
+                //verify if record is contains 'modified' metadata information & if modifying user is set appropriately
+                if (record.Modified is null) continue;
+                if (record.Modified.By != user) continue;
+            }
+
+            if (entry.State == EntityState.Added)
+            {
+                //verify if record is contains 'created' metadata information & if creating user is set appropriately
+                if (record.Created is null) continue;
+                if (record.Created.By != user) continue;
+            }
+
+
+            if (record?.Created?.By != user) continue;
+
             if (entry.State != EntityState.Added && entry.State != EntityState.Modified) continue;
-            
-            record.Modified = MetadataHelper.BuildModified(Guid.NewGuid());
+            if (user is null) continue;
+
+
 
             if (entry.State != EntityState.Added) continue;
-            
-            record.Status = MetadataHelper.BuildStatus();
-            record.Owner = MetadataHelper.BuildOwner(user.Value);
-            record.Created = MetadataHelper.BuildCreated(user.Value);
+
+            //record.Modified = MetadataHelper.BuildModified(Guid.NewGuid());            
+            //record.Status = MetadataHelper.BuildStatus();
+            //record.Owner = MetadataHelper.BuildOwner(user.Value);
+            //record.Created = MetadataHelper.BuildCreated(user.Value);
         }
 
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);

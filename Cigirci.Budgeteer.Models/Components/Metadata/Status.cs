@@ -10,5 +10,5 @@ using System.ComponentModel.DataAnnotations.Schema;
 public record Status : IStatus
 {
     [Column("status")] public string? Reason { get; set; }
-    [Required][Column("state")] public State State { get; set; }
+    [Required][Column("state")] public State State { get; set; } = State.Active;
 }
