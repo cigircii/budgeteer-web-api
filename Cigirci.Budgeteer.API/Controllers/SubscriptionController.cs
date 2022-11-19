@@ -31,6 +31,7 @@ public class SubscriptionController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Subscription>> GetSubscription(Guid id, ODataQueryOptions<Subscription> query)
     {
+        if (_subscriptionService == null) return NotFound();
         return Ok();
     }
 
@@ -41,6 +42,7 @@ public class SubscriptionController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Subscription>>> GetSubscriptions(ODataQueryOptions<Subscription> query)
     {
+        if (_subscriptionService == null) return NotFound();
         return Ok();
     }
 }

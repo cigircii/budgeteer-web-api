@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 [Table("transaction")]
-public record Transaction : Record
+public sealed record Transaction : Record
 {
     [Column("name")]
     public string? Name { get; set; }

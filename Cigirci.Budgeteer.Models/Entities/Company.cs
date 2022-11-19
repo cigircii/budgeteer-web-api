@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 [Table("company")]
-public record Company : Record
+public sealed record Company : Record
 {
     [Required]
     [Column("name")]

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 [Table("profile")]
-public record Profile : Record
+public sealed record Profile : Record
 {
     [Required]
     public Name? Name { get; set; }

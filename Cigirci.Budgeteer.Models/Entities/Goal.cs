@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 /// Represents a saving or repayment goal.
 /// </summary>
 [Table("goal")]
-public record Goal : Record
+public sealed record Goal : Record
 {
     [Required]
     [Column("name")]

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Enums.Subscription;
 
 [Table("subscription")]
-public record Subscription : Record
+public sealed record Subscription : Record
 {
     [Required]
     [Column("name")]

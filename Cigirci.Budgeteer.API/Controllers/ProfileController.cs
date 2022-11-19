@@ -31,6 +31,7 @@ public class ProfileController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Profile>> GetProfile(Guid id, ODataQueryOptions<Profile> query)
     {
+        if (_profileService == null) return NotFound();
         return Ok();
     }
 
@@ -41,6 +42,7 @@ public class ProfileController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Profile>>> GetProfiles(ODataQueryOptions<Profile> query)
     {
+        if (_profileService == null) return NotFound();
         return Ok();
     }
 }

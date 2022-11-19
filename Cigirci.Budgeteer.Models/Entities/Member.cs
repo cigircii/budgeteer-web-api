@@ -12,7 +12,7 @@ using Enums.Group;
 /// Represents a member of a group.
 /// </summary>
 [Table("group_member")]
-public record Member : Record
+public sealed record Member : Record
 {
     [Required]
     [Column("group_id")]

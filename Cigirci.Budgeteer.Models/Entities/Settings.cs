@@ -13,7 +13,7 @@ using Enums.Profile;
 /// </summary>
 /// 
 [Table("user_settings")]
-public record Settings : Record
+public sealed record Settings : Record
 {
     [Required]
     [Column("language")]

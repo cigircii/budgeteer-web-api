@@ -1,5 +1,6 @@
 ﻿namespace Cigirci.Budgeteer.Services;
 
+using Cigirci.Budgeteer.Services.Entities;
 using DbContext;
 using Interfaces.Services;
 using Microsoft.ApplicationInsights;
@@ -14,47 +15,43 @@ using System.Threading.Tasks;
 /// <summary>
 /// Base class for all controller services using BudgeteerContext.
 /// </summary>
-public abstract class BudgeteerService<TEntity> : IBudgeteerService<TEntity> where TEntity : Record
+/// //: IBudgeteerService<TEntity> where TEntity : Record
+public abstract class BudgeteerService<TEntity> where TEntity : Record
 {
     private readonly BudgeteerContext? _budgeteerContext;
-    private readonly TelemetryClient? _telemetryClient;
 
-    protected BudgeteerService(BudgeteerContext? budgeteerContext = null, TelemetryClient? telemetryClient = null)
+    protected BudgeteerService(BudgeteerContext? budgeteerContext = null)
     {
         _budgeteerContext = budgeteerContext;
-        _telemetryClient = telemetryClient;
     }
 
     public async Task<TEntity?> Get(Guid id)
     {
-        
-        return await _budgeteerContext?.Set<TEntity>()
-            .FirstOrDefaultAsync(record => record.Id.Equals(id));
+        if (_budgeteerContext == null) return null;
+        return await _budgeteerContext.Set<TEntity>().FindAsync(id);
     }
 
+    //ToList() returns an empty list if no records are found
+    //TODO: Check if ToListAsync() returns null if no records are found
     public async Task<IEnumerable<TEntity>> GetAll()
     {
-        return await _budgeteerContext?.Set<TEntity>()
-            .ToListAsync();
+        if (_budgeteerContext == null) return new List<TEntity>();
+        return await _budgeteerContext.Set<TEntity>().ToListAsync();
     }
 
-    public Task<TEntity> Create(TEntity record)
+    public async Task Delete(Guid id) 
     {
-        throw new NotImplementedException();
+        if (_budgeteerContext == null) return;
+        
+        var record = await Get(id);
+        if (record == null) return;
+        _budgeteerContext.Set<TEntity>().Remove(record);
+        var result = await _budgeteerContext.SaveChangesAsync();
     }
 
-    public Task<TEntity> Update(TEntity record)
+    public async Task<bool> Exists(Guid id)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task Delete(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> Exists(Guid id)
-    {
-        throw new NotImplementedException();
+        if (_budgeteerContext == null) return false;
+        return await _budgeteerContext.Set<TEntity>().AnyAsync(record => record.Id == id);
     }
 }

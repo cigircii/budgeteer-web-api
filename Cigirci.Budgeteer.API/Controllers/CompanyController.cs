@@ -31,6 +31,7 @@ public class CompanyController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Company>> GetCompany(Guid id, ODataQueryOptions<Company> query)
     {
+        if (_companyService == null) return NotFound();
         return Ok();
     }
 
@@ -41,6 +42,7 @@ public class CompanyController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Company>>> GetCompanies(ODataQueryOptions<Company> query)
     {
+        if (_companyService == null) return NotFound();
         return Ok();
     }
 }

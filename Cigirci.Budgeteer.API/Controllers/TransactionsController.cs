@@ -1,7 +1,7 @@
 ﻿namespace Cigirci.Budgeteer.API.Controllers;
 
 using Cigirci.Budgeteer.API.Properties;
-using Cigirci.Budgeteer.Contracts.Requests;
+using Cigirci.Budgeteer.Contracts.Requests.Entities.Transaction;
 using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Entities;
 using Cigirci.Budgeteer.Models.Validation;
@@ -25,13 +25,11 @@ public class TransactionsController : ODataController
 {
     private readonly TransactionService? _transactionService;
     private readonly ILogger<TransactionsController>? _logger;
-    private readonly BudgeteerContext? _budgeteerContext;
     
-    public TransactionsController(TransactionService? transactionService = null, ILogger<TransactionsController>? logger = null, BudgeteerContext? budgeteerContext = null)
+    public TransactionsController(TransactionService? transactionService = null, ILogger<TransactionsController>? logger = null)
     {
         _transactionService = transactionService;
         _logger = logger;
-        _budgeteerContext = budgeteerContext;
     }
 
     [EnableQuery]
@@ -40,9 +38,10 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Transaction>> GetTransaction(Guid id, ODataQueryOptions<Transaction> query)
+    public async Task<ActionResult<Transaction?>> GetTransaction(Guid id, ODataQueryOptions<Transaction> query)
     {
-        return Ok();
+        if (_transactionService == null) return NotFound();
+        return await _transactionService.Get(id);
     }
 
     [EnableQuery]
@@ -52,9 +51,9 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions(ODataQueryOptions<Transaction> query)
     {
-         //var transactions = await _budgeteerService.GetAll<Transaction>();
+        if (_transactionService == null) return NotFound();
+
         var transactions = await _transactionService?.GetAll();
-        //var transactions = await _budgeteerContext?.Transactions?.ToListAsync();
         return new OkObjectResult(transactions);
     }
 
@@ -63,11 +62,11 @@ public class TransactionsController : ODataController
     [SwaggerOperation("Create transaction", "Create a transaction", OperationId = "Transaction.Create")]
     [ProducesResponseType(typeof(Transaction), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Transaction>> CreateTransaction([FromBody] TransactionRequest transactionRequest)
+    public async Task<ActionResult<Transaction>> CreateTransaction([FromBody] CreateTransaction createRequest)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        return CreatedAtAction("CreateTransaction", transactionRequest);
+        return CreatedAtAction("CreateTransaction", createRequest);
     }
 
     [EnableQuery]
@@ -75,69 +74,27 @@ public class TransactionsController : ODataController
     [SwaggerOperation("Update transaction", "Update a transaction", OperationId = "Transaction.Update")]
     [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Transaction>> UpdateTransaction([FromBody] TransactionRequest transactionRequest)
+    public async Task<ActionResult<Transaction>> UpdateTransaction([FromBody] UpdateTransaction updateRequest)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
+        var properties = updateRequest.GetType().GetProperties();
+        var requestIsInvalid = properties.All(property => property.GetValue(updateRequest) == null);
+        if (requestIsInvalid) return BadRequest("No properties found to update");
+        
+        
         return Ok();
     }
 
-    //// PUT: api/Transactions/5
-    //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    //[HttpPut("{id}")]
-    //public async Task<IActionResult> PutTransaction(Guid id, Transaction transaction)
-    //{
-    //    if (id != transaction.Id)
-    //    {
-    //        return BadRequest();
-    //    }
+    // DELETE: api/Transactions/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTransaction(Guid id)
+    {
+        if (_transactionService == null) return NotFound();
 
-    //    _budgeteerContext.Entry(transaction).State = EntityState.Modified;
+        var transaction = await _transactionService.Get(id);
+        if (transaction == null) return NotFound();
 
-    //    try
-    //    {
-    //        await _budgeteerContext.SaveChangesAsync();
-    //    }
-    //    catch (DbUpdateConcurrencyException)
-    //    {
-    //        if (!TransactionExists(id))
-    //        {
-    //            return NotFound();
-    //        }
-    //        else
-    //        {
-    //            throw;
-    //        }
-    //    }
-
-    //    return NoContent();
-    //}
-
-    //// POST: api/Transactions
-    //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    //[HttpPost]
-    //public async Task<ActionResult<Transaction>> PostTransaction(Transaction transaction)
-    //{
-    //    _budgeteerContext.Transactions.Add(transaction);
-    //    await _budgeteerContext.SaveChangesAsync();
-
-    //    return CreatedAtAction("GetTransaction", new { id = transaction.Id }, transaction);
-    //}
-
-    //// DELETE: api/Transactions/5
-    //[HttpDelete("{id}")]
-    //public async Task<IActionResult> DeleteTransaction(Guid id)
-    //{
-    //    var transaction = await _budgeteerContext.Transactions.FindAsync(id);
-    //    if (transaction == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    _budgeteerContext.Transactions.Remove(transaction);
-    //    await _budgeteerContext.SaveChangesAsync();
-
-    //    return NoContent();
-    //}
+        return NoContent();
+    }
 
     //private bool TransactionExists(Guid id)
     //{

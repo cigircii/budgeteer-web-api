@@ -31,6 +31,7 @@ public class GroupController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Group>> GetGroup(Guid id, ODataQueryOptions<Group> query)
     {
+        if (_groupService == null) return NotFound();
         return Ok();
     }
 
@@ -41,6 +42,7 @@ public class GroupController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Group>>> GetGroups(ODataQueryOptions<Group> query)
     {
+        if (_groupService == null) return NotFound();
         return Ok();
     }
 }

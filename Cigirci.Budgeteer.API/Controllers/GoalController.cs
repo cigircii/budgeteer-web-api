@@ -31,6 +31,7 @@ public class GoalController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Goal>> GetGoal(Guid id, ODataQueryOptions<Goal> query)
     {
+        if (_goalService == null) return NotFound();
         return Ok();
     }
 
@@ -41,6 +42,7 @@ public class GoalController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Goal>>> GetGoals(ODataQueryOptions<Goal> query)
     {
+        if (_goalService == null) return NotFound();
         return Ok();
     }
 }

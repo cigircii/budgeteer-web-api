@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Contracts
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cigirci.Budgeteer.Services", "Cigirci.Budgeteer.Services\Cigirci.Budgeteer.Services.csproj", "{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cigirci.Budgeteer.Factories", "Cigirci.Budgeteer.Factories\Cigirci.Budgeteer.Factories.csproj", "{14EED1EF-29E2-4F46-9782-5B07CA440E81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD620AFA-9E3D-4ADB-A8C0-01DE1350BAC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14EED1EF-29E2-4F46-9782-5B07CA440E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14EED1EF-29E2-4F46-9782-5B07CA440E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14EED1EF-29E2-4F46-9782-5B07CA440E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14EED1EF-29E2-4F46-9782-5B07CA440E81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
