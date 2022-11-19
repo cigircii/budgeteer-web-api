@@ -62,8 +62,9 @@ public class TransactionsController : ODataController
     public async Task<ActionResult<Transaction>> CreateTransaction([FromBody] CreateTransaction createRequest)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
-
-        return CreatedAtAction("CreateTransaction", createRequest);
+        
+        var transaction = await _transactionService?.CreateTransaction(createRequest);
+        return CreatedAtAction("CreateTransaction", transaction);
     }
 
     [EnableQuery]
