@@ -19,14 +19,14 @@ public abstract record Record : IRecord
     public Guid Id { get; init; }
 
     [Required]
-    public Owner? Owner { get; init; }
+    public Owner Owner { get; init; } = new();
 
     [Required]
-    public Status? Status { get; init; }
+    public Status Status { get; init; } = new();
 
     [Required]
-    public Created? Created { get; init; }
+    public Created Created { get; init; } = new();
 
     [Required]
-    public Modified? Modified { get; init; }
+    public Modified Modified { get; init; } = new();
 }

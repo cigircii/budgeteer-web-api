@@ -19,12 +19,10 @@ using System.Threading.Tasks;
 public abstract class BudgeteerService<TEntity> where TEntity : Record
 {
     private readonly BudgeteerContext? _budgeteerContext;
-    private readonly Guid _user;
 
-    protected BudgeteerService(BudgeteerContext? budgeteerContext = null, IHttpContextAccessor? httpContextAccessor = null)
+    protected BudgeteerService(BudgeteerContext? budgeteerContext = null)
     {
         _budgeteerContext = budgeteerContext;
-        _user = GetUserId(httpContextAccessor?.HttpContext?.User);
     }
 
     public async Task<TEntity?> Get(Guid id)
@@ -51,6 +49,16 @@ public abstract class BudgeteerService<TEntity> where TEntity : Record
         return record;
     }
 
+    public async Task<TEntity?> Update(TEntity record)
+    {
+        if (_budgeteerContext == null) return null;
+        
+        _budgeteerContext.Set<TEntity>().Update(record);
+        await _budgeteerContext.SaveChangesAsync();
+
+        return record;
+    }
+
     public async Task Delete(Guid id)
     {
         if (_budgeteerContext == null) return;
@@ -66,49 +74,4 @@ public abstract class BudgeteerService<TEntity> where TEntity : Record
         if (_budgeteerContext == null) return false;
         return await _budgeteerContext.Set<TEntity>().AnyAsync(record => record.Id == id);
     }
-
-    private Guid GetUserId(ClaimsPrincipal? principal)
-    {
-        if (principal == null) return Guid.Empty;
-
-        var user = principal.FindFirstValue(ClaimTypes.NameIdentifier);
-        return Guid.Parse(user);
-    }
-
-    //TODO: Move metadata creation to a separate service
-    internal Created GetCreated()
-    {
-        return new Created
-        {
-            By = _user
-        };
-    }
-
-    //TODO: Move metadata creation to a separate service
-    internal Modified GetModified()
-    {
-        return new Modified
-        {
-            By = _user
-        };
-    }
-
-    //TODO: Move metadata creation to a separate service
-    internal Status GetStatus()
-    {
-        return new Status
-        {
-            State = State.Active
-        };
-    }
-
-    //TODO: Move metadata creation to a separate service
-    internal Owner GetOwner()
-    {
-        return new Owner
-        {
-            Id = _user,
-            Type = OwnerType.User
-        };
-    }   
 }

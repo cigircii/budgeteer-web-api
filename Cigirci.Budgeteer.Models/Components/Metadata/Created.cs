@@ -13,5 +13,5 @@ public record Created : ICreated
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public DateTime On { get; init; } = DateTime.Now;
 
-    [Required][Column("created_by")] public Guid By { get; init; }
+    [Required][Column("created_by")] public Guid By { get; set; }
 }

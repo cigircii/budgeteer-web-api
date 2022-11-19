@@ -3,5 +3,5 @@
 public interface ICreated
 {
     public DateTime On { get; init; }
-    public Guid By { get; init; }
+    public Guid By { get; set; }
 }

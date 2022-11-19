@@ -51,7 +51,7 @@ public class TransactionsController : ODataController
         if (_transactionService == null) return NotFound();
 
         var transactions = await _transactionService?.GetAll();
-        return new OkObjectResult(transactions);
+        return Ok(transactions);
     }
 
     [EnableQuery]
@@ -61,6 +61,7 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Transaction>> CreateTransaction([FromBody] CreateTransaction createRequest)
     {
+        if (_transactionService == null) return NotFound();
         if (!ModelState.IsValid) return BadRequest(ModelState);
         
         var transaction = await _transactionService?.CreateTransaction(createRequest);
@@ -72,13 +73,18 @@ public class TransactionsController : ODataController
     [SwaggerOperation("Update transaction", "Update a transaction", OperationId = "Transaction.Update")]
     [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Transaction>> UpdateTransaction([FromBody] UpdateTransaction updateRequest)
+    public async Task<ActionResult<Transaction>> UpdateTransaction(Guid id, [FromBody] UpdateTransaction updateRequest)
     {
+        if (_transactionService == null) return NotFound();
+        
         var properties = updateRequest.GetType().GetProperties();
         var requestIsInvalid = properties.All(property => property.GetValue(updateRequest) == null);
         if (requestIsInvalid) return BadRequest("No properties found to update");
 
-        return Ok();
+        var transaction = await _transactionService?.UpdateTransaction(id, updateRequest);
+        if (transaction == null) return NotFound();
+
+        return Ok(transaction);
     }
 
     // DELETE: api/Transactions/5
