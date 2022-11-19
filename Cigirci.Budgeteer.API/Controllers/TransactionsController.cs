@@ -2,16 +2,13 @@
 
 using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.Contracts.Requests.Entities.Transaction;
-using Cigirci.Budgeteer.DbContext;
 using Cigirci.Budgeteer.Models.Entities;
 using Cigirci.Budgeteer.Models.Validation;
-using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using Microsoft.EntityFrameworkCore;
 using Services.Entities;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -25,7 +22,7 @@ public class TransactionsController : ODataController
 {
     private readonly TransactionService? _transactionService;
     private readonly ILogger<TransactionsController>? _logger;
-    
+
     public TransactionsController(TransactionService? transactionService = null, ILogger<TransactionsController>? logger = null)
     {
         _transactionService = transactionService;
@@ -79,8 +76,7 @@ public class TransactionsController : ODataController
         var properties = updateRequest.GetType().GetProperties();
         var requestIsInvalid = properties.All(property => property.GetValue(updateRequest) == null);
         if (requestIsInvalid) return BadRequest("No properties found to update");
-        
-        
+
         return Ok();
     }
 

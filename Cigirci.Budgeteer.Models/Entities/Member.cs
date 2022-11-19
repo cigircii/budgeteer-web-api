@@ -1,12 +1,8 @@
 ﻿namespace Cigirci.Budgeteer.Models.Entities;
-using System;
-using System.Collections.Generic;
+
+using Enums.Group;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Enums.Group;
 
 /// <summary>
 /// Represents a member of a group.

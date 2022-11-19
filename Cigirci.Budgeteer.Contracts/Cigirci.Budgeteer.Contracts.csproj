@@ -10,4 +10,8 @@
         <Folder Include="Responses\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Cigirci.Budgeteer.Enums\Cigirci.Budgeteer.Enums.csproj" />
+    </ItemGroup>
+
 </Project>

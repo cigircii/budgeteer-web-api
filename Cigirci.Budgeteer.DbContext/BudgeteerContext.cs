@@ -6,7 +6,6 @@ using Cigirci.Budgeteer.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -68,8 +67,8 @@ public class BudgeteerContext : DbContext
         modelBuilder.Entity<Transaction>()
             .HasQueryFilter(record => record.Owner.Id == user);
     }
-    
-    private void Configure<T>(ModelBuilder modelBuilder) where T: Record
+
+    private void Configure<T>(ModelBuilder modelBuilder) where T : Record
     {
         var user = _httpContextAccessor?.HttpContext?.User.GetUserId();
 

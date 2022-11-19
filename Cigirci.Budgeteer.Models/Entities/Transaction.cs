@@ -11,7 +11,7 @@ public sealed record Transaction : Record
 
     [Column("description")]
     public string? Description { get; set; }
-    
+
     [Required]
     [Column("amount", TypeName = "decimal(19,4)")]
     public decimal Amount { get; set; }

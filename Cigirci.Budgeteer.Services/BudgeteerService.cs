@@ -1,15 +1,10 @@
 ﻿namespace Cigirci.Budgeteer.Services;
 
-using Cigirci.Budgeteer.Services.Entities;
 using DbContext;
-using Interfaces.Services;
-using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 /// <summary>
@@ -39,10 +34,10 @@ public abstract class BudgeteerService<TEntity> where TEntity : Record
         return await _budgeteerContext.Set<TEntity>().ToListAsync();
     }
 
-    public async Task Delete(Guid id) 
+    public async Task Delete(Guid id)
     {
         if (_budgeteerContext == null) return;
-        
+
         var record = await Get(id);
         if (record == null) return;
         _budgeteerContext.Set<TEntity>().Remove(record);
