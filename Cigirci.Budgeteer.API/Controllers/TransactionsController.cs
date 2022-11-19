@@ -88,7 +88,9 @@ public class TransactionsController : ODataController
     }
 
     // DELETE: api/Transactions/5
-    [HttpDelete("{id}")]
+    [HttpDelete(ODataProperties.ODataRoutePrefix + "/transactions({id})")]
+    [SwaggerOperation("Delete transaction", "Delete a transaction", OperationId = "Transaction.Delete")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> DeleteTransaction(Guid id)
     {
         if (_transactionService == null) return NotFound();
@@ -96,11 +98,8 @@ public class TransactionsController : ODataController
         var transaction = await _transactionService.Get(id);
         if (transaction == null) return NotFound();
 
-        return NoContent();
-    }
+        await _transactionService.Delete(id);
 
-    //private bool TransactionExists(Guid id)
-    //{
-    //    return _budgeteerContext.Transactions.Any(e => e.Id == id);
-    //}
+        return Ok();
+    }
 }
