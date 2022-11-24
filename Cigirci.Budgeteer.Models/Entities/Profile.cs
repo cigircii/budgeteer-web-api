@@ -1,13 +1,13 @@
 ﻿namespace Cigirci.Budgeteer.Models.Entities;
 
 using Cigirci.Budgeteer.Enums.Profile;
-using Cigirci.Budgeteer.Interfaces.Metadata.Profile.Types;
+using Components.Profile;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 [Table("profile")]
-public record Profile : Record
+public sealed record Profile : Record
 {
     [Required]
     public Name? Name { get; set; }

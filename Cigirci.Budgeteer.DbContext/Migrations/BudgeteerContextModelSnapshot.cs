@@ -22,6 +22,102 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Company", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("company");
+                });
+
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Goal", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(19,4)")
+                        .HasColumnName("amount");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(19,4)")
+                        .HasColumnName("balance");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("goal");
+                });
+
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Group", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(19,4)")
+                        .HasColumnName("amount");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("group");
+                });
+
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Member", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Ranking")
+                        .HasColumnType("int")
+                        .HasColumnName("rank");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("group_member");
+                });
+
             modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Profile", b =>
                 {
                     b.Property<Guid>("Id")
@@ -55,6 +151,67 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
                     b.ToTable("profile");
                 });
 
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Settings", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int")
+                        .HasColumnName("currency");
+
+                    b.Property<int>("Language")
+                        .HasColumnType("int")
+                        .HasColumnName("language");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("user_settings");
+                });
+
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Subscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit")
+                        .HasColumnName("active");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("description");
+
+                    b.Property<DateTime?>("Due")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("due_date");
+
+                    b.Property<DateTime?>("End")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("end_date");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
+
+                    b.Property<int?>("Recurrence")
+                        .HasColumnType("int")
+                        .HasColumnName("recurrence");
+
+                    b.Property<DateTime?>("Start")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("start_date");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("subscription");
+                });
+
             modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Transaction", b =>
                 {
                     b.Property<Guid>("Id")
@@ -79,9 +236,413 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
                     b.ToTable("transaction");
                 });
 
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Company", b =>
+                {
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Created", "Created", b1 =>
+                        {
+                            b1.Property<Guid>("CompanyId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("created_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("created_on");
+
+                            b1.HasKey("CompanyId");
+
+                            b1.ToTable("company");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CompanyId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Models.Components.Metadata.Modified", "Modified", b1 =>
+                        {
+                            b1.Property<Guid>("CompanyId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("modified_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("modified_on");
+
+                            b1.HasKey("CompanyId");
+
+                            b1.ToTable("company");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CompanyId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Owner", "Owner", b1 =>
+                        {
+                            b1.Property<Guid>("CompanyId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("owner_id");
+
+                            b1.Property<int>("Type")
+                                .HasColumnType("int")
+                                .HasColumnName("owner_type");
+
+                            b1.HasKey("CompanyId");
+
+                            b1.ToTable("company");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CompanyId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Status", "Status", b1 =>
+                        {
+                            b1.Property<Guid>("CompanyId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Reason")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("status");
+
+                            b1.Property<int>("State")
+                                .HasColumnType("int")
+                                .HasColumnName("state");
+
+                            b1.HasKey("CompanyId");
+
+                            b1.ToTable("company");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CompanyId");
+                        });
+
+                    b.Navigation("Created")
+                        .IsRequired();
+
+                    b.Navigation("Modified")
+                        .IsRequired();
+
+                    b.Navigation("Owner")
+                        .IsRequired();
+
+                    b.Navigation("Status")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Goal", b =>
+                {
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Created", "Created", b1 =>
+                        {
+                            b1.Property<Guid>("GoalId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("created_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("created_on");
+
+                            b1.HasKey("GoalId");
+
+                            b1.ToTable("goal");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GoalId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Models.Components.Metadata.Modified", "Modified", b1 =>
+                        {
+                            b1.Property<Guid>("GoalId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("modified_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("modified_on");
+
+                            b1.HasKey("GoalId");
+
+                            b1.ToTable("goal");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GoalId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Owner", "Owner", b1 =>
+                        {
+                            b1.Property<Guid>("GoalId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("owner_id");
+
+                            b1.Property<int>("Type")
+                                .HasColumnType("int")
+                                .HasColumnName("owner_type");
+
+                            b1.HasKey("GoalId");
+
+                            b1.ToTable("goal");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GoalId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Status", "Status", b1 =>
+                        {
+                            b1.Property<Guid>("GoalId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Reason")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("status");
+
+                            b1.Property<int>("State")
+                                .HasColumnType("int")
+                                .HasColumnName("state");
+
+                            b1.HasKey("GoalId");
+
+                            b1.ToTable("goal");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GoalId");
+                        });
+
+                    b.Navigation("Created")
+                        .IsRequired();
+
+                    b.Navigation("Modified")
+                        .IsRequired();
+
+                    b.Navigation("Owner")
+                        .IsRequired();
+
+                    b.Navigation("Status")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Group", b =>
+                {
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Created", "Created", b1 =>
+                        {
+                            b1.Property<Guid>("GroupId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("created_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("created_on");
+
+                            b1.HasKey("GroupId");
+
+                            b1.ToTable("group");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GroupId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Models.Components.Metadata.Modified", "Modified", b1 =>
+                        {
+                            b1.Property<Guid>("GroupId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("modified_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("modified_on");
+
+                            b1.HasKey("GroupId");
+
+                            b1.ToTable("group");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GroupId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Owner", "Owner", b1 =>
+                        {
+                            b1.Property<Guid>("GroupId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("owner_id");
+
+                            b1.Property<int>("Type")
+                                .HasColumnType("int")
+                                .HasColumnName("owner_type");
+
+                            b1.HasKey("GroupId");
+
+                            b1.ToTable("group");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GroupId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Status", "Status", b1 =>
+                        {
+                            b1.Property<Guid>("GroupId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Reason")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("status");
+
+                            b1.Property<int>("State")
+                                .HasColumnType("int")
+                                .HasColumnName("state");
+
+                            b1.HasKey("GroupId");
+
+                            b1.ToTable("group");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GroupId");
+                        });
+
+                    b.Navigation("Created")
+                        .IsRequired();
+
+                    b.Navigation("Modified")
+                        .IsRequired();
+
+                    b.Navigation("Owner")
+                        .IsRequired();
+
+                    b.Navigation("Status")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Member", b =>
+                {
+                    b.HasOne("Cigirci.Budgeteer.Models.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Created", "Created", b1 =>
+                        {
+                            b1.Property<Guid>("MemberId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("created_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("created_on");
+
+                            b1.HasKey("MemberId");
+
+                            b1.ToTable("group_member");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MemberId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Models.Components.Metadata.Modified", "Modified", b1 =>
+                        {
+                            b1.Property<Guid>("MemberId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("modified_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("modified_on");
+
+                            b1.HasKey("MemberId");
+
+                            b1.ToTable("group_member");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MemberId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Owner", "Owner", b1 =>
+                        {
+                            b1.Property<Guid>("MemberId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("owner_id");
+
+                            b1.Property<int>("Type")
+                                .HasColumnType("int")
+                                .HasColumnName("owner_type");
+
+                            b1.HasKey("MemberId");
+
+                            b1.ToTable("group_member");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MemberId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Status", "Status", b1 =>
+                        {
+                            b1.Property<Guid>("MemberId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Reason")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("status");
+
+                            b1.Property<int>("State")
+                                .HasColumnType("int")
+                                .HasColumnName("state");
+
+                            b1.HasKey("MemberId");
+
+                            b1.ToTable("group_member");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MemberId");
+                        });
+
+                    b.Navigation("Created")
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Modified")
+                        .IsRequired();
+
+                    b.Navigation("Owner")
+                        .IsRequired();
+
+                    b.Navigation("Status")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Profile", b =>
                 {
-                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Profile.Types.Name", "Name", b1 =>
+                    b.OwnsOne("Cigirci.Budgeteer.Models.Components.Profile.Name", "Name", b1 =>
                         {
                             b1.Property<Guid>("ProfileId")
                                 .HasColumnType("uniqueidentifier");
@@ -112,7 +673,6 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
                                 .HasColumnName("created_by");
 
                             b1.Property<DateTime>("On")
-                                .ValueGeneratedOnAdd()
                                 .HasColumnType("datetime2")
                                 .HasColumnName("created_on");
 
@@ -124,7 +684,7 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
                                 .HasForeignKey("ProfileId");
                         });
 
-                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Modified", "Modified", b1 =>
+                    b.OwnsOne("Cigirci.Budgeteer.Models.Components.Metadata.Modified", "Modified", b1 =>
                         {
                             b1.Property<Guid>("ProfileId")
                                 .HasColumnType("uniqueidentifier");
@@ -134,7 +694,6 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
                                 .HasColumnName("modified_by");
 
                             b1.Property<DateTime>("On")
-                                .ValueGeneratedOnAddOrUpdate()
                                 .HasColumnType("datetime2")
                                 .HasColumnName("modified_on");
 
@@ -204,6 +763,204 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Settings", b =>
+                {
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Created", "Created", b1 =>
+                        {
+                            b1.Property<Guid>("SettingsId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("created_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("created_on");
+
+                            b1.HasKey("SettingsId");
+
+                            b1.ToTable("user_settings");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SettingsId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Models.Components.Metadata.Modified", "Modified", b1 =>
+                        {
+                            b1.Property<Guid>("SettingsId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("modified_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("modified_on");
+
+                            b1.HasKey("SettingsId");
+
+                            b1.ToTable("user_settings");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SettingsId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Owner", "Owner", b1 =>
+                        {
+                            b1.Property<Guid>("SettingsId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("owner_id");
+
+                            b1.Property<int>("Type")
+                                .HasColumnType("int")
+                                .HasColumnName("owner_type");
+
+                            b1.HasKey("SettingsId");
+
+                            b1.ToTable("user_settings");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SettingsId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Status", "Status", b1 =>
+                        {
+                            b1.Property<Guid>("SettingsId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Reason")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("status");
+
+                            b1.Property<int>("State")
+                                .HasColumnType("int")
+                                .HasColumnName("state");
+
+                            b1.HasKey("SettingsId");
+
+                            b1.ToTable("user_settings");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SettingsId");
+                        });
+
+                    b.Navigation("Created")
+                        .IsRequired();
+
+                    b.Navigation("Modified")
+                        .IsRequired();
+
+                    b.Navigation("Owner")
+                        .IsRequired();
+
+                    b.Navigation("Status")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Subscription", b =>
+                {
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Created", "Created", b1 =>
+                        {
+                            b1.Property<Guid>("SubscriptionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("created_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("created_on");
+
+                            b1.HasKey("SubscriptionId");
+
+                            b1.ToTable("subscription");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SubscriptionId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Models.Components.Metadata.Modified", "Modified", b1 =>
+                        {
+                            b1.Property<Guid>("SubscriptionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("By")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("modified_by");
+
+                            b1.Property<DateTime>("On")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("modified_on");
+
+                            b1.HasKey("SubscriptionId");
+
+                            b1.ToTable("subscription");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SubscriptionId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Owner", "Owner", b1 =>
+                        {
+                            b1.Property<Guid>("SubscriptionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("owner_id");
+
+                            b1.Property<int>("Type")
+                                .HasColumnType("int")
+                                .HasColumnName("owner_type");
+
+                            b1.HasKey("SubscriptionId");
+
+                            b1.ToTable("subscription");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SubscriptionId");
+                        });
+
+                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Status", "Status", b1 =>
+                        {
+                            b1.Property<Guid>("SubscriptionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Reason")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("status");
+
+                            b1.Property<int>("State")
+                                .HasColumnType("int")
+                                .HasColumnName("state");
+
+                            b1.HasKey("SubscriptionId");
+
+                            b1.ToTable("subscription");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SubscriptionId");
+                        });
+
+                    b.Navigation("Created")
+                        .IsRequired();
+
+                    b.Navigation("Modified")
+                        .IsRequired();
+
+                    b.Navigation("Owner")
+                        .IsRequired();
+
+                    b.Navigation("Status")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Cigirci.Budgeteer.Models.Entities.Transaction", b =>
                 {
                     b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Created", "Created", b1 =>
@@ -216,7 +973,6 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
                                 .HasColumnName("created_by");
 
                             b1.Property<DateTime>("On")
-                                .ValueGeneratedOnAdd()
                                 .HasColumnType("datetime2")
                                 .HasColumnName("created_on");
 
@@ -228,7 +984,7 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
                                 .HasForeignKey("TransactionId");
                         });
 
-                    b.OwnsOne("Cigirci.Budgeteer.Interfaces.Metadata.Record.Types.Modified", "Modified", b1 =>
+                    b.OwnsOne("Cigirci.Budgeteer.Models.Components.Metadata.Modified", "Modified", b1 =>
                         {
                             b1.Property<Guid>("TransactionId")
                                 .HasColumnType("uniqueidentifier");
@@ -238,7 +994,6 @@ namespace Cigirci.Budgeteer.DbContext.Migrations
                                 .HasColumnName("modified_by");
 
                             b1.Property<DateTime>("On")
-                                .ValueGeneratedOnAddOrUpdate()
                                 .HasColumnType("datetime2")
                                 .HasColumnName("modified_on");
 

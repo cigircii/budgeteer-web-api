@@ -1,6 +1,7 @@
 ﻿namespace Cigirci.Budgeteer.DbContext.Helper;
 
 using Cigirci.Budgeteer.Interfaces.Metadata.Record.Types;
+using Models.Components.Metadata;
 
 internal static class MetadataHelper
 {
@@ -31,11 +32,11 @@ internal static class MetadataHelper
         };
     }
 
-    internal static Owner BuildOwner()
+    internal static Owner BuildOwner(Guid id)
     {
         return new Owner
         {
-            Id = Guid.NewGuid(),
+            Id = id,
             Type = Enums.Record.OwnerType.User
         };
     }

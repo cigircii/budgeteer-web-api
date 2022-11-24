@@ -1,8 +1,8 @@
-﻿namespace Cigirci.Budgeteer.Contracts.Requests;
+﻿namespace Cigirci.Budgeteer.Contracts.Requests.Entities.Transaction;
 
 using System.ComponentModel.DataAnnotations;
 
-public record TransactionRequest
+public record CreateTransaction
 {
     [Required]
     public string? Name { get; set; }

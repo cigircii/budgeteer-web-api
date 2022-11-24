@@ -2,7 +2,7 @@
 
 using Enums.Record;
 
-internal interface IStatus
+public interface IStatus
 {
     string? Reason { get; set; }
     public State State { get; set; }

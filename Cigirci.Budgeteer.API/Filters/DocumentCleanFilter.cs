@@ -7,11 +7,11 @@ public class DocumentCleanFilter : IDocumentFilter
 {
     private const string SchemaV3Prefix = "#/components/schemas/";
     private readonly Dictionary<string, int> countByDefinitionReference = new();
-    private OpenApiDocument swaggerDoc = null;
+    private OpenApiDocument? _swaggerDoc = null;
 
     public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
     {
-        this.swaggerDoc = swaggerDoc;
+        this._swaggerDoc = swaggerDoc;
         bool anyDefinitionRemoved;
 
         // First loop through all references including the references used in schemas
@@ -67,7 +67,7 @@ public class DocumentCleanFilter : IDocumentFilter
             var definitionKey = countByRef.Key.Replace(SchemaV3Prefix, string.Empty);
 
             // Check if schema only refers to itself
-            if (swaggerDoc.Components.Schemas.TryGetValue(definitionKey, out OpenApiSchema openApiSchema)
+            if (swaggerDoc.Components.Schemas.TryGetValue(definitionKey, out OpenApiSchema? openApiSchema)
                 && CountReferencesToSpecificSchemaInSchema(openApiSchema, countByRef.Key) != 0
                 && swaggerDoc.Components.Schemas.Remove(definitionKey))
             {
@@ -112,7 +112,7 @@ public class DocumentCleanFilter : IDocumentFilter
         {
             countByDefinitionReference[requestBody.Reference.ReferenceV3]++;
             if (alsoCountSubSchemas &&
-                this.swaggerDoc.Components.Schemas.TryGetValue(requestBody.Reference.Id, out OpenApiSchema subSchema))
+                this._swaggerDoc.Components.Schemas.TryGetValue(requestBody.Reference.Id, out OpenApiSchema? subSchema))
             {
                 AddSchemaReferenceCount(subSchema, alsoCountSubSchemas, subSchemaDepth + 1);
             }
@@ -173,7 +173,7 @@ public class DocumentCleanFilter : IDocumentFilter
         {
             countByDefinitionReference[schema.Reference.ReferenceV3]++;
             if (alsoCountSubSchemas &&
-                this.swaggerDoc.Components.Schemas.TryGetValue(schema.Reference.Id, out OpenApiSchema subSchema))
+                _swaggerDoc.Components.Schemas.TryGetValue(schema.Reference.Id, out OpenApiSchema? subSchema))
             {
                 AddSchemaReferenceCount(subSchema, alsoCountSubSchemas, subSchemaDepth + 1);
             }
@@ -183,7 +183,7 @@ public class DocumentCleanFilter : IDocumentFilter
         {
             countByDefinitionReference[schema.Items.Reference.ReferenceV3]++;
             if (alsoCountSubSchemas &&
-                    this.swaggerDoc.Components.Schemas.TryGetValue(schema.Items.Reference.Id, out OpenApiSchema subSchema))
+                    this._swaggerDoc.Components.Schemas.TryGetValue(schema.Items.Reference.Id, out OpenApiSchema? subSchema))
             {
                 AddSchemaReferenceCount(subSchema, alsoCountSubSchemas, subSchemaDepth + 1);
             }
@@ -220,7 +220,7 @@ public class DocumentCleanFilter : IDocumentFilter
 
         if ((schema.Properties?.Count ?? 0) != 0)
         {
-            foreach (var s in schema.Properties.Values)
+            foreach (var s in schema?.Properties?.Values)
             {
                 count += CountReferencesToSpecificSchemaInSchema(s, schemaName);
             }

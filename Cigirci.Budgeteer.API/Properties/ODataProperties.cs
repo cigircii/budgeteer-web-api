@@ -2,7 +2,7 @@
 
 internal record ODataProperties
 {
-    public const string ODataRoutePrefix = "api/data/v1.0";
-    public const string ODataNamespace = "Cigirci.Budgeteer.API";
-    public const string ODataContainer = "DefaultContainer";
+    internal const string ODataRoutePrefix = "api/data/v1.0";
+    internal const string ODataNamespace = "Cigirci.Budgeteer.API";
+    internal const string ODataContainer = "DefaultContainer";
 }

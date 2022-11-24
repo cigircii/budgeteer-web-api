@@ -2,8 +2,8 @@
 
 using Cigirci.Budgeteer.Enums.Record;
 
-internal interface IOwner
+public interface IOwner
 {
-    public Guid Id { get; set; }
-    public OwnerType Type { get; set; }
+    public Guid? Id { get; set; }
+    public OwnerType? Type { get; set; }
 }

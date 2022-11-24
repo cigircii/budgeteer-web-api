@@ -1,5 +1,6 @@
-﻿namespace Cigirci.Budgeteer.Interfaces.Metadata.Profile.Types;
+namespace Cigirci.Budgeteer.Models.Components.Profile;
 
+using Interfaces.Metadata.Profile;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 

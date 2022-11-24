@@ -1,7 +1,7 @@
 ﻿namespace Cigirci.Budgeteer.Interfaces.Metadata.Record;
 
-internal interface ICreated
+public interface ICreated
 {
-    public DateTime On { get; set; }
+    public DateTime On { get; init; }
     public Guid By { get; set; }
 }

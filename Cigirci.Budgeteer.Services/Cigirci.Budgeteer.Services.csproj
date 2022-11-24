@@ -1,14 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Cigirci.Budgeteer.Contracts\Cigirci.Budgeteer.Contracts.csproj" />
-    <ProjectReference Include="..\Cigirci.Budgeteer.DbContext\Cigirci.Budgeteer.DbContext.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Cigirci.Budgeteer.Contracts\Cigirci.Budgeteer.Contracts.csproj" />
+        <ProjectReference Include="..\Cigirci.Budgeteer.DbContext\Cigirci.Budgeteer.DbContext.csproj" />
+    </ItemGroup>
 
 </Project>
