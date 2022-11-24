@@ -37,7 +37,7 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Transaction?>> GetTransaction(Guid id, ODataQueryOptions<Transaction> query)
     {
-        if (_transactionService == null) return NotFound();
+        if (_transactionService is null) return NotFound();
         return await _transactionService.Get(id);
     }
 
@@ -48,9 +48,9 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions(ODataQueryOptions<Transaction> query)
     {
-        if (_transactionService == null) return NotFound();
+        if (_transactionService is null) return NotFound();
 
-        var transactions = await _transactionService?.GetAll();
+        var transactions = await _transactionService.GetAll();
         return Ok(transactions);
     }
 
@@ -61,10 +61,10 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Transaction>> CreateTransaction([FromBody] CreateTransaction createRequest)
     {
-        if (_transactionService == null) return NotFound();
+        if (_transactionService is null) return NotFound();
         if (!ModelState.IsValid) return BadRequest(ModelState);
         
-        var transaction = await _transactionService?.CreateTransaction(createRequest);
+        var transaction = await _transactionService.CreateTransaction(createRequest);
         return CreatedAtAction("CreateTransaction", transaction);
     }
 
@@ -75,13 +75,13 @@ public class TransactionsController : ODataController
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Transaction>> UpdateTransaction(Guid id, [FromBody] UpdateTransaction updateRequest)
     {
-        if (_transactionService == null) return NotFound();
+        if (_transactionService is null) return NotFound();
         
         var properties = updateRequest.GetType().GetProperties();
         var requestIsInvalid = properties.All(property => property.GetValue(updateRequest) == null);
         if (requestIsInvalid) return BadRequest("No properties found to update");
 
-        var transaction = await _transactionService?.UpdateTransaction(id, updateRequest);
+        var transaction = await _transactionService.UpdateTransaction(id, updateRequest);
         if (transaction == null) return NotFound();
 
         return Ok(transaction);

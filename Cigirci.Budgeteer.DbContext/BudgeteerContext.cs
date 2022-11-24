@@ -70,6 +70,7 @@ public class BudgeteerContext : DbContext
             .HasQueryFilter(record => record.Owner.Id == user);
     }
 
+    //TODO: Potentially use reflection to apply this to all 'record' entities
     private void Configure<T>(ModelBuilder modelBuilder) where T : Record
     {
         var user = _httpContextAccessor?.HttpContext?.User.GetUserId();
@@ -106,24 +107,3 @@ public class BudgeteerContext : DbContext
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 }
-
-//            //verify ownership
-//            if (record.Owner is null) continue;
-//            if (record.Owner.Id != user) continue;
-
-//            //verify core record values are present
-//            if (record.Status is null) continue;
-//            if (record.Created is null) continue;
-//            if (record.Modified is null) continue;
-
-//            //verify who's creating the record
-//            if (entry.State == EntityState.Added)
-//            {
-//                if (record.Created.By != user || record.Modified.By != user) continue;
-//            }
-
-//            //verify who's modifying the record
-//            if (entry.State == EntityState.Modified)
-//{
-//    if (record.Modified.By != user) continue;
-//}

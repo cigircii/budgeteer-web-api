@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using NuGet.Protocol;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Cigirci.Budgeteer.API.Filters;
@@ -111,8 +112,8 @@ public class DocumentCleanFilter : IDocumentFilter
         if (requestBody.Reference != null && !string.IsNullOrWhiteSpace(requestBody.Reference.ReferenceV3))
         {
             countByDefinitionReference[requestBody.Reference.ReferenceV3]++;
-            if (alsoCountSubSchemas &&
-                this._swaggerDoc.Components.Schemas.TryGetValue(requestBody.Reference.Id, out OpenApiSchema? subSchema))
+            if (alsoCountSubSchemas && _swaggerDoc is not null &&
+                _swaggerDoc.Components.Schemas.TryGetValue(requestBody.Reference.Id, out OpenApiSchema? subSchema))
             {
                 AddSchemaReferenceCount(subSchema, alsoCountSubSchemas, subSchemaDepth + 1);
             }
@@ -172,7 +173,7 @@ public class DocumentCleanFilter : IDocumentFilter
         if (schema.Reference != null && !string.IsNullOrWhiteSpace(schema.Reference.ReferenceV3))
         {
             countByDefinitionReference[schema.Reference.ReferenceV3]++;
-            if (alsoCountSubSchemas &&
+            if (alsoCountSubSchemas && _swaggerDoc is not null &&
                 _swaggerDoc.Components.Schemas.TryGetValue(schema.Reference.Id, out OpenApiSchema? subSchema))
             {
                 AddSchemaReferenceCount(subSchema, alsoCountSubSchemas, subSchemaDepth + 1);
@@ -182,8 +183,8 @@ public class DocumentCleanFilter : IDocumentFilter
         if (schema.Items != null && schema.Items.Reference != null && !string.IsNullOrWhiteSpace(schema.Items.Reference.ReferenceV3))
         {
             countByDefinitionReference[schema.Items.Reference.ReferenceV3]++;
-            if (alsoCountSubSchemas &&
-                    this._swaggerDoc.Components.Schemas.TryGetValue(schema.Items.Reference.Id, out OpenApiSchema? subSchema))
+            if (alsoCountSubSchemas && _swaggerDoc is not null &&
+                    _swaggerDoc.Components.Schemas.TryGetValue(schema.Items.Reference.Id, out OpenApiSchema? subSchema))
             {
                 AddSchemaReferenceCount(subSchema, alsoCountSubSchemas, subSchemaDepth + 1);
             }
@@ -191,10 +192,13 @@ public class DocumentCleanFilter : IDocumentFilter
 
         if ((schema.Properties?.Count ?? 0) != 0)
         {
-            //Recurse into child properties
-            foreach (var s in schema.Properties.Values)
+            if (schema.Properties is not null)
             {
-                AddSchemaReferenceCount(s, alsoCountSubSchemas, subSchemaDepth);
+                //Recurse into child properties
+                foreach (var s in schema.Properties.Values)
+                {
+                    AddSchemaReferenceCount(s, alsoCountSubSchemas, subSchemaDepth);
+                }
             }
         }
     }
@@ -220,9 +224,12 @@ public class DocumentCleanFilter : IDocumentFilter
 
         if ((schema.Properties?.Count ?? 0) != 0)
         {
-            foreach (var s in schema?.Properties?.Values)
+            if (schema.Properties is not null)
             {
-                count += CountReferencesToSpecificSchemaInSchema(s, schemaName);
+                foreach (var s in schema.Properties.Values)
+                {
+                    count += CountReferencesToSpecificSchemaInSchema(s, schemaName);
+                }
             }
         }
 

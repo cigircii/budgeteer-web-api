@@ -2,7 +2,7 @@
 
 using Cigirci.Budgeteer.Enums.Record;
 
-public class UpdateTransaction
+public record UpdateTransaction
 {
     public string? Name { get; set; }
 
