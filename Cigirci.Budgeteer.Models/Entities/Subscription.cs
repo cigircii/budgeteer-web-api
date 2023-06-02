@@ -19,5 +19,10 @@ public sealed record Subscription : Record
 
     [Column("end_date")] public DateTime? End { get; set; }
 
+    /// <summary>
+    /// This field is meant to indicate whether the subscription itself is still active (on-going) or has been cancelled
+    /// This field is not to be confused with whether the actual record itself is active or not
+    /// The state of the record itself is defined (counts for all 'record' entities) within the 'Status' class inherited from 'Record' (abstract) class
+    /// </summary>
     [Required] [Column("active")] public required bool Active { get; set; }
 }

@@ -33,7 +33,11 @@ public class SubscriptionController : ODataController
     public async Task<ActionResult<Subscription>> GetSubscription(Guid id, ODataQueryOptions<Subscription> query)
     {
         if (_subscriptionService == null) return NotFound();
-        return Ok();
+        
+        var subscription = await _subscriptionService.Get(id);
+        if (subscription is null) return NotFound();
+
+        return Ok(subscription);
     }
 
     [EnableQuery]
@@ -44,7 +48,10 @@ public class SubscriptionController : ODataController
     public async Task<ActionResult<IEnumerable<Subscription>>> GetSubscriptions(ODataQueryOptions<Subscription> query)
     {
         if (_subscriptionService == null) return NotFound();
-        return Ok();
+
+        var subscriptions = await _subscriptionService.GetAll();
+        
+        return Ok(subscriptions);
     }
 
     [EnableQuery]
@@ -58,6 +65,7 @@ public class SubscriptionController : ODataController
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
         var subscription = await _subscriptionService.CreateSubscription(createRequest);
+        
         return CreatedAtAction("CreateSubscription", subscription);
     }
 

@@ -50,6 +50,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<BudgeteerContext>();
 //builder.Services.AddScoped<BudgeteerService>();
 builder.Services.AddScoped<TransactionService>();
+builder.Services.AddScoped<SubscriptionService>();
 
 //TODO: Add swagger separately
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

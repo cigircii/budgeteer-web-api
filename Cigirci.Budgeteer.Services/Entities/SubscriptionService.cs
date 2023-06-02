@@ -15,6 +15,11 @@ public class SubscriptionService : BudgeteerService<Subscription>
         var subscription = new Subscription
         {
             Name = createRequest.Name,
+            Description = createRequest.Description,
+            Start = createRequest.Start,
+            End = createRequest.End,
+            Recurrence = createRequest.Recurrence,
+            Due = createRequest.Due,
             Active = createRequest.Active
         };
 

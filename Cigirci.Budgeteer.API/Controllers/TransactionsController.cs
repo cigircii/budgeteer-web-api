@@ -36,7 +36,11 @@ public class TransactionsController : ODataController
     public async Task<ActionResult<Transaction?>> GetTransaction(Guid id, ODataQueryOptions<Transaction> query)
     {
         if (_transactionService is null) return NotFound();
-        return await _transactionService.Get(id);
+        
+        var transaction = await _transactionService.Get(id);
+        if (transaction is null) return NotFound();
+
+        return Ok(transaction);
     }
 
     [EnableQuery]
