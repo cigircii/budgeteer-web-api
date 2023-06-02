@@ -38,10 +38,10 @@ builder.Services.AddControllers()
     }).AddOData(options =>
     {
         options.Filter()
-        .Select()
-        .OrderBy()
-        //.Expand()
-        .SetMaxTop(5000);
+            .Select()
+            .OrderBy()
+            //.Expand()
+            .SetMaxTop(5000);
     });
 
 //TODO: Add hosted service
@@ -63,6 +63,31 @@ builder.Services.AddSwaggerGen(c =>
             Description = OpenApiInfoProperties.Description,
             Contact = OpenApiInfoProperties.Contact
         });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
 
     c.EnableAnnotations();
 
