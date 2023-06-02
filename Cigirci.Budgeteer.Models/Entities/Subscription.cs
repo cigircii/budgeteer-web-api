@@ -10,7 +10,7 @@ public sealed record Subscription : Record
 {
     [Required]
     [Column("name")]
-    public string? Name { get; set; }
+    public required string? Name { get; set; }
 
     [Column("description")]
     public string? Description { get; set; }
@@ -29,5 +29,5 @@ public sealed record Subscription : Record
 
     [Required]
     [Column("active")]
-    public bool Active { get; set; }
+    public required bool Active { get; set; }
 }

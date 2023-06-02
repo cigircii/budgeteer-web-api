@@ -26,23 +26,24 @@ public class TransactionService : BudgeteerService<Transaction>
     public async Task<Transaction?> UpdateTransaction(Guid id, UpdateTransaction updateRequest)
     {
         var transaction = await Get(id);
-        if (transaction == null) return null;
+        if (transaction is null) return null;
 
+        //TODO: Possibly move this to a new location
         if (!string.IsNullOrWhiteSpace(updateRequest.Name))
         {
             transaction.Name = updateRequest.Name;
         }
-
+        
         if (!string.IsNullOrWhiteSpace(updateRequest.Description))
         {
             transaction.Description = updateRequest.Description;
         }
-
+        
         if (updateRequest.Amount.HasValue)
         {
             transaction.Amount = updateRequest.Amount.Value;
         }
-
+        
         if (updateRequest.State.HasValue)
         {
             transaction.Status.State = updateRequest.State.Value;
