@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <ApplicationInsightsResourceId>/subscriptions/1f514ec3-7b80-4ad0-9801-a1931073cb24/resourceGroups/Cigirci/providers/microsoft.insights/components/cigirci-budgeteer-api-insights</ApplicationInsightsResourceId>
         <UserSecretsId>1ef08b39-3bf9-43bc-ad7a-2db802d6bfaf</UserSecretsId>
+        <LangVersion>11</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
