@@ -1,29 +1,27 @@
 ﻿namespace Cigirci.Budgeteer.API.Controllers;
 
-using Cigirci.Budgeteer.API.Properties;
-using Cigirci.Budgeteer.Contracts.Requests.Entities.Transaction;
-using Cigirci.Budgeteer.Models.Entities;
-using Cigirci.Budgeteer.Models.Validation;
+using Contracts.Requests.Entities.Transaction;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Models.Entities;
+using Models.Validation;
+using Properties;
 using Services.Entities;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 [Authorize]
 [ODataQueryParameterBinding]
 [ODataRouteComponent(ODataProperties.ODataRoutePrefix)]
 public class TransactionsController : ODataController
 {
-    private readonly TransactionService? _transactionService;
     private readonly ILogger<TransactionsController>? _logger;
+    private readonly TransactionService? _transactionService;
 
-    public TransactionsController(TransactionService? transactionService = null, ILogger<TransactionsController>? logger = null)
+    public TransactionsController(TransactionService? transactionService = null,
+        ILogger<TransactionsController>? logger = null)
     {
         _transactionService = transactionService;
         _logger = logger;
@@ -43,7 +41,8 @@ public class TransactionsController : ODataController
 
     [EnableQuery]
     [HttpGet(ODataProperties.ODataRoutePrefix + "/transactions")]
-    [SwaggerOperation("List transactions", "Retrieves a list of available transactions", OperationId = "Transaction.List")]
+    [SwaggerOperation("List transactions", "Retrieves a list of available transactions",
+        OperationId = "Transaction.List")]
     [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions(ODataQueryOptions<Transaction> query)
@@ -63,7 +62,7 @@ public class TransactionsController : ODataController
     {
         if (_transactionService is null) return NotFound();
         if (!ModelState.IsValid) return BadRequest(ModelState);
-        
+
         var transaction = await _transactionService.CreateTransaction(createRequest);
         return CreatedAtAction("CreateTransaction", transaction);
     }
@@ -76,7 +75,7 @@ public class TransactionsController : ODataController
     public async Task<ActionResult<Transaction>> UpdateTransaction(Guid id, [FromBody] UpdateTransaction updateRequest)
     {
         if (_transactionService is null) return NotFound();
-        
+
         var properties = updateRequest.GetType().GetProperties();
         var requestIsInvalid = properties.All(property => property.GetValue(updateRequest) == null);
         if (requestIsInvalid) return BadRequest("No properties found to update");

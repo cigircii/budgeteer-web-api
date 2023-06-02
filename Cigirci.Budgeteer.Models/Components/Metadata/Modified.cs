@@ -1,10 +1,9 @@
 ﻿namespace Cigirci.Budgeteer.Models.Components.Metadata;
 
-using Cigirci.Budgeteer.Interfaces.Metadata.Record;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Interfaces.Metadata.Record;
+using Microsoft.EntityFrameworkCore;
 
 [Owned]
 public record Modified : IModified
@@ -14,5 +13,5 @@ public record Modified : IModified
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public DateTime On { get; set; } = DateTime.Now;
 
-    [Required][Column("modified_by")] public Guid By { get; set; }
+    [Required] [Column("modified_by")] public Guid By { get; set; }
 }

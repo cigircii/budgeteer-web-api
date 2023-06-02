@@ -1,6 +1,6 @@
 ﻿namespace Cigirci.Budgeteer.Contracts.Requests.Entities.Transaction;
 
-using Cigirci.Budgeteer.Enums.Record;
+using Enums.Record;
 
 public record UpdateTransaction
 {

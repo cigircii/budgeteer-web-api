@@ -6,10 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 [Table("company")]
 public sealed record Company : Record
 {
-    [Required]
-    [Column("name")]
-    public string? Name { get; set; }
+    [Required] [Column("name")] public string? Name { get; set; }
 
-    [Column("description")]
-    public string? Description { get; set; }
+    [Column("description")] public string? Description { get; set; }
 }

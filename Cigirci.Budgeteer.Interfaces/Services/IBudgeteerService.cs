@@ -1,7 +1,7 @@
 ﻿namespace Cigirci.Budgeteer.Interfaces.Services;
 
 /// <summary>
-/// Base interface for all services.
+///     Base interface for all services.
 /// </summary>
 /// <typeparam name="TRecord">The record(s) (rows) you're retrieving</typeparam>
 public interface IBudgeteerService<TRecord>

@@ -1,12 +1,12 @@
 namespace Cigirci.Budgeteer.API.Controllers;
 
-using Cigirci.Budgeteer.Models.Entities;
-using Cigirci.Budgeteer.Models.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Models.Entities;
+using Models.Validation;
 using Properties;
 using Services.Entities;
 using Swashbuckle.AspNetCore.Annotations;

@@ -1,4 +1,5 @@
 ﻿namespace Cigirci.Budgeteer.API.Properties;
+
 internal record SwaggerDocProperties
 {
     internal const string WebApiDocsAuthId = "Bearer";

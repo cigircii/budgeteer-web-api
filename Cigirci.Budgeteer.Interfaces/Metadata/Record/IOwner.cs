@@ -1,6 +1,6 @@
 ﻿namespace Cigirci.Budgeteer.Interfaces.Metadata.Record;
 
-using Cigirci.Budgeteer.Enums.Record;
+using Enums.Record;
 
 public interface IOwner
 {

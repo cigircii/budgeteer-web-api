@@ -1,3 +1,5 @@
+using System.Text;
+using System.Text.Json.Serialization;
 using Cigirci.Budgeteer.API.Filters;
 using Cigirci.Budgeteer.API.Properties;
 using Cigirci.Budgeteer.DbContext;
@@ -6,13 +8,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(authenticationScheme: JwtBearerDefaults.AuthenticationScheme, options =>
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
         var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 

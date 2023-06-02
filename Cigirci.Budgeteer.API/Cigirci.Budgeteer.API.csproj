@@ -10,29 +10,29 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
-        <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.0.11" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
+        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10"/>
+        <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.0.11"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.0" />
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="6.4.0" />
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.0"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="6.4.0"/>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Cigirci.Budgeteer.Contracts\Cigirci.Budgeteer.Contracts.csproj" />
-        <ProjectReference Include="..\Cigirci.Budgeteer.DbContext\Cigirci.Budgeteer.DbContext.csproj" />
-        <ProjectReference Include="..\Cigirci.Budgeteer.Models\Cigirci.Budgeteer.Models.csproj" />
-        <ProjectReference Include="..\Cigirci.Budgeteer.Services\Cigirci.Budgeteer.Services.csproj" />
+        <ProjectReference Include="..\Cigirci.Budgeteer.Contracts\Cigirci.Budgeteer.Contracts.csproj"/>
+        <ProjectReference Include="..\Cigirci.Budgeteer.DbContext\Cigirci.Budgeteer.DbContext.csproj"/>
+        <ProjectReference Include="..\Cigirci.Budgeteer.Models\Cigirci.Budgeteer.Models.csproj"/>
+        <ProjectReference Include="..\Cigirci.Budgeteer.Services\Cigirci.Budgeteer.Services.csproj"/>
     </ItemGroup>
 
 </Project>

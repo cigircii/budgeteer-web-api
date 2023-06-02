@@ -1,8 +1,5 @@
 ﻿namespace Cigirci.Budgeteer.Models.Validation;
 
-using System;
-using System.Collections.Generic;
-
 public class ErrorModel
 {
     public Dictionary<string, string[]>? Errors { get; set; }
@@ -16,9 +13,9 @@ public class ErrorModel
         return new ErrorModel
         {
             Errors = new Dictionary<string, string[]>
-                {
-                    { "body", new string[] { ex.Message } }
-                },
+            {
+                { "body", new[] { ex.Message } }
+            },
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
             Title = "Bad request.",
             Status = 400,

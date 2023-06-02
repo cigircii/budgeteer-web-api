@@ -1,6 +1,6 @@
 ﻿namespace Cigirci.Budgeteer.Services.Entities;
 
-using Cigirci.Budgeteer.DbContext;
+using DbContext;
 using Models.Entities;
 
 public class ProfileService : BudgeteerService<Transaction>

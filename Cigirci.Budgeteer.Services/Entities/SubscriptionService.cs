@@ -1,7 +1,7 @@
 ﻿namespace Cigirci.Budgeteer.Services.Entities;
 
-using Cigirci.Budgeteer.DbContext;
 using Contracts.Requests.Entities.Subscription;
+using DbContext;
 using Models.Entities;
 
 public class SubscriptionService : BudgeteerService<Subscription>
@@ -26,35 +26,17 @@ public class SubscriptionService : BudgeteerService<Subscription>
         var subscription = await Get(id);
         if (subscription is null) return null;
 
-        if (!string.IsNullOrWhiteSpace(updateRequest.Name))
-        {
-            subscription.Name = updateRequest.Name;
-        }
-        
-        if (!string.IsNullOrWhiteSpace(updateRequest.Description))
-        {
-            subscription.Description = updateRequest.Description;
-        }
+        if (!string.IsNullOrWhiteSpace(updateRequest.Name)) subscription.Name = updateRequest.Name;
 
-        if (updateRequest.Due.HasValue)
-        {
-            subscription.Due = updateRequest.Due.Value;
-        }
+        if (!string.IsNullOrWhiteSpace(updateRequest.Description)) subscription.Description = updateRequest.Description;
 
-        if (updateRequest.End.HasValue)
-        {
-            subscription.End = updateRequest.End.Value;
-        }
+        if (updateRequest.Due.HasValue) subscription.Due = updateRequest.Due.Value;
 
-        if (updateRequest.Recurrence.HasValue)
-        {
-            subscription.Recurrence = updateRequest.Recurrence.Value;
-        }
+        if (updateRequest.End.HasValue) subscription.End = updateRequest.End.Value;
 
-        if (updateRequest.Start.HasValue)
-        {
-            subscription.Start = updateRequest.Start.Value;
-        }
+        if (updateRequest.Recurrence.HasValue) subscription.Recurrence = updateRequest.Recurrence.Value;
+
+        if (updateRequest.Start.HasValue) subscription.Start = updateRequest.Start.Value;
 
         return await Update(subscription);
     }

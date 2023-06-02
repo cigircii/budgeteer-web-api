@@ -9,31 +9,21 @@ public class OperationCleanFilter : IOperationFilter
     {
         ReplaceODataClrParameters(operation, context);
 
-        foreach (var response in operation.Responses)
-        {
-            RemoveExtraTypes(response.Value.Content);
-        }
+        foreach (var response in operation.Responses) RemoveExtraTypes(response.Value.Content);
 
-        if (operation.RequestBody != null)
-        {
-            RemoveExtraTypes(operation.RequestBody.Content);
-        }
+        if (operation.RequestBody != null) RemoveExtraTypes(operation.RequestBody.Content);
     }
 
     private static void ReplaceODataClrParameters(OpenApiOperation operation, OperationFilterContext context)
     {
-        var odataQueryOptionsClrParam = context.MethodInfo.GetParameters().FirstOrDefault(p => p.ParameterType.Name.Contains("ODataQueryOptions"));
+        var odataQueryOptionsClrParam = context.MethodInfo.GetParameters()
+            .FirstOrDefault(p => p.ParameterType.Name.Contains("ODataQueryOptions"));
 
-        if (odataQueryOptionsClrParam == null)
-        {
-            return;
-        }
+        if (odataQueryOptionsClrParam == null) return;
 
-        var odataQueryOptionsParamDefinition = operation.Parameters.FirstOrDefault(p => p.Name == odataQueryOptionsClrParam.Name);
-        if (odataQueryOptionsParamDefinition != null)
-        {
-            operation.Parameters.Remove(odataQueryOptionsParamDefinition);
-        }
+        var odataQueryOptionsParamDefinition =
+            operation.Parameters.FirstOrDefault(p => p.Name == odataQueryOptionsClrParam.Name);
+        if (odataQueryOptionsParamDefinition != null) operation.Parameters.Remove(odataQueryOptionsParamDefinition);
         operation.Parameters.Add(new OpenApiParameter
         {
             Name = "$filter",
@@ -80,8 +70,6 @@ public class OperationCleanFilter : IOperationFilter
     {
         // Use ToList to create a copy of the Keys so we can enumerate while also manipulating the collection
         foreach (var item in content.Keys.Where(k => k != "application/json" && k != "application/xml").ToList())
-        {
             content.Remove(item);
-        }
     }
 }

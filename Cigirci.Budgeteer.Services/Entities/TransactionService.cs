@@ -1,8 +1,7 @@
 ﻿namespace Cigirci.Budgeteer.Services.Entities;
 
-using Cigirci.Budgeteer.Contracts.Requests.Entities.Transaction;
-using Cigirci.Budgeteer.DbContext;
-using Microsoft.AspNetCore.Http;
+using Contracts.Requests.Entities.Transaction;
+using DbContext;
 using Models.Entities;
 
 public class TransactionService : BudgeteerService<Transaction>
@@ -17,7 +16,7 @@ public class TransactionService : BudgeteerService<Transaction>
         {
             Name = createRequest.Name,
             Amount = createRequest.Amount,
-            Description = createRequest.Description,
+            Description = createRequest.Description
         };
 
         return await Add(transaction);
@@ -29,25 +28,13 @@ public class TransactionService : BudgeteerService<Transaction>
         if (transaction is null) return null;
 
         //TODO: Possibly move this to a new location
-        if (!string.IsNullOrWhiteSpace(updateRequest.Name))
-        {
-            transaction.Name = updateRequest.Name;
-        }
-        
-        if (!string.IsNullOrWhiteSpace(updateRequest.Description))
-        {
-            transaction.Description = updateRequest.Description;
-        }
-        
-        if (updateRequest.Amount.HasValue)
-        {
-            transaction.Amount = updateRequest.Amount.Value;
-        }
-        
-        if (updateRequest.State.HasValue)
-        {
-            transaction.Status.State = updateRequest.State.Value;
-        }
+        if (!string.IsNullOrWhiteSpace(updateRequest.Name)) transaction.Name = updateRequest.Name;
+
+        if (!string.IsNullOrWhiteSpace(updateRequest.Description)) transaction.Description = updateRequest.Description;
+
+        if (updateRequest.Amount.HasValue) transaction.Amount = updateRequest.Amount.Value;
+
+        if (updateRequest.State.HasValue) transaction.Status.State = updateRequest.State.Value;
 
         return await Update(transaction);
     }

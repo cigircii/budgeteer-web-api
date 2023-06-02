@@ -6,11 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 [Table("transaction")]
 public sealed record Transaction : Record
 {
-    [Column("name")]
-    public string? Name { get; set; }
+    [Column("name")] public string? Name { get; set; }
 
-    [Column("description")]
-    public string? Description { get; set; }
+    [Column("description")] public string? Description { get; set; }
 
     [Required]
     [Column("amount", TypeName = "decimal(19,4)")]

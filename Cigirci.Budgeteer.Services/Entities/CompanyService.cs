@@ -1,9 +1,9 @@
 ﻿namespace Cigirci.Budgeteer.Services.Entities;
 
-using Cigirci.Budgeteer.DbContext;
+using DbContext;
 using Models.Entities;
 
-public class CompanyService : BudgeteerService<Transaction>
+public class CompanyService : BudgeteerService<Company>
 {
     public CompanyService(BudgeteerContext? budgeteerContext = null) : base(budgeteerContext)
     {

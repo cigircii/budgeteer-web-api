@@ -1,6 +1,7 @@
 ﻿namespace Cigirci.Budgeteer.DbContext.Helper;
 
-using Cigirci.Budgeteer.Interfaces.Metadata.Record.Types;
+using Enums.Record;
+using Interfaces.Metadata.Record.Types;
 using Models.Components.Metadata;
 
 internal static class MetadataHelper
@@ -28,7 +29,7 @@ internal static class MetadataHelper
         return new Status
         {
             Reason = "Active",
-            State = Enums.Record.State.Active
+            State = State.Active
         };
     }
 
@@ -37,7 +38,7 @@ internal static class MetadataHelper
         return new Owner
         {
             Id = id,
-            Type = Enums.Record.OwnerType.User
+            Type = OwnerType.User
         };
     }
 }
