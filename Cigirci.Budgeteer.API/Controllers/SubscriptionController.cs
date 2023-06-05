@@ -17,11 +17,14 @@ using Swashbuckle.AspNetCore.Annotations;
 [ODataRouteComponent(ODataProperties.ODataRoutePrefix)]
 public class SubscriptionController : ODataController
 {
+    private readonly ILogger<SubscriptionController>? _logger;
     private readonly SubscriptionService? _subscriptionService;
 
-    public SubscriptionController(SubscriptionService? subscriptionService = null)
+    public SubscriptionController(SubscriptionService? subscriptionService = null,
+        ILogger<SubscriptionController>? logger = null)
     {
         _subscriptionService = subscriptionService;
+        _logger = logger;
     }
 
     [EnableQuery]
@@ -33,7 +36,7 @@ public class SubscriptionController : ODataController
     public async Task<ActionResult<Subscription>> GetSubscription(Guid id, ODataQueryOptions<Subscription> query)
     {
         if (_subscriptionService == null) return NotFound();
-        
+
         var subscription = await _subscriptionService.Get(id);
         if (subscription is null) return NotFound();
 
@@ -50,7 +53,7 @@ public class SubscriptionController : ODataController
         if (_subscriptionService == null) return NotFound();
 
         var subscriptions = await _subscriptionService.GetAll();
-        
+
         return Ok(subscriptions);
     }
 
@@ -65,7 +68,7 @@ public class SubscriptionController : ODataController
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
         var subscription = await _subscriptionService.CreateSubscription(createRequest);
-        
+
         return CreatedAtAction("CreateSubscription", subscription);
     }
 
