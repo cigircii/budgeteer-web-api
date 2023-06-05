@@ -23,5 +23,5 @@ public sealed record Goal : Record
     ///     Represents the current amount for this goal
     /// </summary>
     [Column("balance", TypeName = "decimal(19,4)")]
-    public double Balance { get; set; }
+    public double? Balance { get; set; }
 }

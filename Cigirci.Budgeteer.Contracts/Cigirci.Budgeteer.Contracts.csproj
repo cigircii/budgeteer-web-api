@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Responses\"/>
+        <Folder Include="Responses\" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Cigirci.Budgeteer.Enums\Cigirci.Budgeteer.Enums.csproj"/>
+        <ProjectReference Include="..\Cigirci.Budgeteer.Enums\Cigirci.Budgeteer.Enums.csproj" />
     </ItemGroup>
 
 </Project>
